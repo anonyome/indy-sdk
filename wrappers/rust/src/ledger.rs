@@ -1,18 +1,18 @@
 use serde_json::json;
-use {ErrorCode, IndyError};
+use crate::{ErrorCode, IndyError};
 
 use std::ffi::CString;
 use std::ptr::null;
 
 use futures::Future;
 
-use ffi::ledger;
-use ffi::{ResponseStringCB,
+use crate::ffi::ledger;
+use crate::ffi::{ResponseStringCB,
           ResponseStringStringCB,
           ResponseStringStringU64CB};
 
-use utils::callbacks::{ClosureHandler, ResultHandler};
-use {WalletHandle, CommandHandle, PoolHandle};
+use crate::utils::callbacks::{ClosureHandler, ResultHandler};
+use crate::{WalletHandle, CommandHandle, PoolHandle};
 
 /// Signs and submits request message to validator pool.
 ///

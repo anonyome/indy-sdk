@@ -1,14 +1,14 @@
 use futures::Future;
 
-use {ErrorCode, IndyError};
+use crate::{ErrorCode, IndyError};
 
 use std::ffi::CString;
 
-use utils::callbacks::{ClosureHandler, ResultHandler};
+use crate::utils::callbacks::{ClosureHandler, ResultHandler};
 
-use ffi::cache;
-use ffi::{ResponseEmptyCB, ResponseStringCB};
-use {WalletHandle, CommandHandle, PoolHandle};
+use crate::ffi::cache;
+use crate::ffi::{ResponseEmptyCB, ResponseStringCB};
+use crate::{WalletHandle, CommandHandle, PoolHandle};
 
 /// Get schema json data for specified schema id.
 /// If data is present inside of cache, cached data is returned.
@@ -37,6 +37,15 @@ use {WalletHandle, CommandHandle, PoolHandle};
 ///     version: Schema's version string
 ///     ver: Version of the Schema json
 /// }
+pub fn u_get_schema(pool_handle: PoolHandle,
+                    wallet_handle: WalletHandle,
+                    submitter_did: &str,
+                    id: &str,
+                    options_json: &str) -> Result<String, IndyError> {
+
+    return get_schema(pool_handle, wallet_handle, submitter_did, id, options_json).wait();
+}
+
 pub fn get_schema(pool_handle: PoolHandle,
                   wallet_handle: WalletHandle,
                   submitter_did: &str,
@@ -98,6 +107,15 @@ pub fn _get_schema(command_handle: CommandHandle,
 ///     },
 ///     ver: Version of the Credential Definition json
 /// }
+pub fn u_get_cred_def(pool_handle: PoolHandle,
+    wallet_handle: WalletHandle,
+    submitter_did: &str,
+    id: &str,
+    options_json: &str) -> Result<String, IndyError> {
+
+    return get_cred_def(pool_handle, wallet_handle, submitter_did, id, options_json).wait();
+}
+
 pub fn get_cred_def(pool_handle: PoolHandle,
                     wallet_handle: WalletHandle,
                     submitter_did: &str,
@@ -139,6 +157,11 @@ pub fn _get_cred_def(command_handle: CommandHandle,
 ///  {
 ///    maxAge: (int, optional, -1 by default) Purge cached data if older than this many seconds. -1 means purge all.
 ///  }
+pub fn u_purge_schema_cache(wallet_handle: WalletHandle, options_json: &str) -> Result<(), IndyError> {
+
+    return purge_schema_cache(wallet_handle, options_json).wait();
+}
+
 pub fn purge_schema_cache(wallet_handle: WalletHandle, options_json: &str) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -164,6 +187,11 @@ fn _purge_schema_cache(command_handle: CommandHandle, wallet_handle: WalletHandl
 ///  {
 ///    maxAge: (int, optional, -1 by default) Purge cached data if older than this many seconds. -1 means purge all.
 ///  }
+pub fn u_purge_cred_def_cache(wallet_handle: WalletHandle, options_json: &str) -> Result<(), IndyError> {
+
+    return purge_cred_def_cache(wallet_handle, options_json).wait();
+}
+
 pub fn purge_cred_def_cache(wallet_handle: WalletHandle, options_json: &str) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 

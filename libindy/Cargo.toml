@@ -11,7 +11,7 @@ build = "build.rs"
 [lib]
 name = "indy"
 path = "src/lib.rs"
-crate-type = ["staticlib", "rlib", "cdylib"]
+crate-type = ["staticlib", "rlib", "cdylib", "dylib"]
 
 [features]
 default = ["base58_rust_base58", "pair_amcl", "local_nodes_pool", "revocation_tests"]
@@ -22,6 +22,7 @@ revocation_tests = []
 force_full_interaction_tests = []
 sodium_static = []
 only_high_cases = []
+vendored-zmq = ['zmq/vendored']
 
 # Causes the build to fail on all warnings
 fatal_warnings = []
@@ -60,6 +61,15 @@ variant_count = "*"
 num-traits = "0.2"
 num-derive = "0.2"
 convert_case = "0.3.2"
+# --------------------
+uniffi = "0.16.0"
+# --------------------
+
+# --------------------
+# Include uniffi dependencies
+[build-dependencies]
+uniffi_build = "0.16.0"
+# --------------------
 
 [dependencies.uuid]
 version = "0.7.4"
@@ -79,7 +89,7 @@ indy = { path = "../wrappers/rust" }
 indy-sys = { path = "../wrappers/rust/indy-sys" }
 futures = "0.1.28"
 sodiumoxide = {version = "0.0.16"}
-openssl = "0.10"
+openssl = { version = "0.10", features = ["vendored"] }
 dirs = "2.0.2"
 
 [[bench]]

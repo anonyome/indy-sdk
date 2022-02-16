@@ -1,0 +1,397 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		38AB086D27AC85F9009173BB /* Anoncreds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB086C27AC85F9009173BB /* Anoncreds.swift */; };
+		38AB086F27AC860D009173BB /* AnoncredsRevocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB086E27AC860D009173BB /* AnoncredsRevocation.swift */; };
+		38AB087127AC861B009173BB /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB087027AC861B009173BB /* Crypto.swift */; };
+		38AB087327AC8627009173BB /* Endorser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB087227AC8627009173BB /* Endorser.swift */; };
+		38AB087527AC8633009173BB /* Ledger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB087427AC8633009173BB /* Ledger.swift */; };
+		38AB087827AC9226009173BB /* EnvironmentUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB087727AC9226009173BB /* EnvironmentUtils.swift */; };
+		38AB087A27AC9247009173BB /* PoolUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38AB087927AC9247009173BB /* PoolUtils.swift */; };
+		38C3BB8B2791204400435C57 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3BB8A2791204400435C57 /* main.swift */; };
+		38C3BB992791220700435C57 /* lib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C3BB982791220700435C57 /* lib.swift */; };
+		38C3BBA127912D6400435C57 /* libindy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C3BBA027912D6400435C57 /* libindy.a */; };
+		38C3BBA327912D7600435C57 /* libindyrs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C3BBA227912D7600435C57 /* libindyrs.a */; };
+		38C3BBAA2798D00200435C57 /* libzmq.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C3BBA92798D00200435C57 /* libzmq.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		38C3BB852791204400435C57 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		38AB086C27AC85F9009173BB /* Anoncreds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anoncreds.swift; sourceTree = "<group>"; };
+		38AB086E27AC860D009173BB /* AnoncredsRevocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnoncredsRevocation.swift; sourceTree = "<group>"; };
+		38AB087027AC861B009173BB /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		38AB087227AC8627009173BB /* Endorser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endorser.swift; sourceTree = "<group>"; };
+		38AB087427AC8633009173BB /* Ledger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ledger.swift; sourceTree = "<group>"; };
+		38AB087727AC9226009173BB /* EnvironmentUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentUtils.swift; sourceTree = "<group>"; };
+		38AB087927AC9247009173BB /* PoolUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolUtils.swift; sourceTree = "<group>"; };
+		38C3BB872791204400435C57 /* SwiftTestApp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftTestApp; sourceTree = BUILT_PRODUCTS_DIR; };
+		38C3BB8A2791204400435C57 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		38C3BB96279121F700435C57 /* libFFI.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; name = libFFI.modulemap; path = ../../src/libFFI.modulemap; sourceTree = "<group>"; };
+		38C3BB97279121F700435C57 /* libFFI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = libFFI.h; path = ../../src/libFFI.h; sourceTree = "<group>"; };
+		38C3BB982791220700435C57 /* lib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = lib.swift; path = ../../src/lib.swift; sourceTree = "<group>"; };
+		38C3BBA027912D6400435C57 /* libindy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindy.a; path = ../../../libindy/target/debug/libindy.a; sourceTree = "<group>"; };
+		38C3BBA227912D7600435C57 /* libindyrs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libindyrs.a; path = ../target/debug/libindyrs.a; sourceTree = "<group>"; };
+		38C3BBA92798D00200435C57 /* libzmq.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libzmq.a; path = ../../../../../../../../usr/local/Cellar/zeromq/4.3.4/lib/libzmq.a; sourceTree = "<group>"; };
+		38C3BBAB2798D06400435C57 /* SwiftTestApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftTestApp.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		38C3BB842791204400435C57 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38C3BBAA2798D00200435C57 /* libzmq.a in Frameworks */,
+				38C3BBA327912D7600435C57 /* libindyrs.a in Frameworks */,
+				38C3BBA127912D6400435C57 /* libindy.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		38AB086B27AC85D5009173BB /* IndyDemos */ = {
+			isa = PBXGroup;
+			children = (
+				38AB087627AC9212009173BB /* utils */,
+				38AB086C27AC85F9009173BB /* Anoncreds.swift */,
+				38AB086E27AC860D009173BB /* AnoncredsRevocation.swift */,
+				38AB087027AC861B009173BB /* Crypto.swift */,
+				38AB087227AC8627009173BB /* Endorser.swift */,
+				38AB087427AC8633009173BB /* Ledger.swift */,
+			);
+			path = IndyDemos;
+			sourceTree = "<group>";
+		};
+		38AB087627AC9212009173BB /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				38AB087727AC9226009173BB /* EnvironmentUtils.swift */,
+				38AB087927AC9247009173BB /* PoolUtils.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		38C3BB7E2791204400435C57 = {
+			isa = PBXGroup;
+			children = (
+				38C3BB892791204400435C57 /* SwiftTestApp */,
+				38C3BB882791204400435C57 /* Products */,
+				38C3BB912791217800435C57 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		38C3BB882791204400435C57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				38C3BB872791204400435C57 /* SwiftTestApp */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		38C3BB892791204400435C57 /* SwiftTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				38AB086B27AC85D5009173BB /* IndyDemos */,
+				38C3BBAB2798D06400435C57 /* SwiftTestApp.entitlements */,
+				38C3BB97279121F700435C57 /* libFFI.h */,
+				38C3BB96279121F700435C57 /* libFFI.modulemap */,
+				38C3BB982791220700435C57 /* lib.swift */,
+				38C3BB8A2791204400435C57 /* main.swift */,
+			);
+			path = SwiftTestApp;
+			sourceTree = "<group>";
+		};
+		38C3BB912791217800435C57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38C3BBA227912D7600435C57 /* libindyrs.a */,
+				38C3BBA027912D6400435C57 /* libindy.a */,
+				38C3BBA92798D00200435C57 /* libzmq.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		38C3BB862791204400435C57 /* SwiftTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38C3BB8E2791204400435C57 /* Build configuration list for PBXNativeTarget "SwiftTestApp" */;
+			buildPhases = (
+				38C3BB832791204400435C57 /* Sources */,
+				38C3BB842791204400435C57 /* Frameworks */,
+				38C3BB852791204400435C57 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftTestApp;
+			productName = SwiftTestApp;
+			productReference = 38C3BB872791204400435C57 /* SwiftTestApp */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		38C3BB7F2791204400435C57 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1310;
+				LastUpgradeCheck = 1310;
+				TargetAttributes = {
+					38C3BB862791204400435C57 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+				};
+			};
+			buildConfigurationList = 38C3BB822791204400435C57 /* Build configuration list for PBXProject "SwiftTestApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 38C3BB7E2791204400435C57;
+			productRefGroup = 38C3BB882791204400435C57 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				38C3BB862791204400435C57 /* SwiftTestApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		38C3BB832791204400435C57 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38C3BB8B2791204400435C57 /* main.swift in Sources */,
+				38AB087327AC8627009173BB /* Endorser.swift in Sources */,
+				38C3BB992791220700435C57 /* lib.swift in Sources */,
+				38AB087127AC861B009173BB /* Crypto.swift in Sources */,
+				38AB087527AC8633009173BB /* Ledger.swift in Sources */,
+				38AB086D27AC85F9009173BB /* Anoncreds.swift in Sources */,
+				38AB087A27AC9247009173BB /* PoolUtils.swift in Sources */,
+				38AB086F27AC860D009173BB /* AnoncredsRevocation.swift in Sources */,
+				38AB087827AC9226009173BB /* EnvironmentUtils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		38C3BB8C2791204400435C57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		38C3BB8D2791204400435C57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		38C3BB8F2791204400435C57 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SwiftTestApp/SwiftTestApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8C2VK65N56;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					../target/debug,
+					../../../libindy/target/debug,
+				);
+				HEADER_SEARCH_PATHS = (
+					"../../../libindy/src/**",
+					"../src/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../target/debug,
+					../../../libindy/target/debug,
+					"/usr/local/Cellar/openssl@1.1/1.1.1m/lib",
+					/usr/local/Cellar/zeromq/4.3.4/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ../src/libFFI.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		38C3BB902791204400435C57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SwiftTestApp/SwiftTestApp.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8C2VK65N56;
+				ENABLE_HARDENED_RUNTIME = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					../target/debug,
+					../../../libindy/target/debug,
+				);
+				HEADER_SEARCH_PATHS = (
+					"../../../libindy/src/**",
+					"../src/**",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					../target/debug,
+					../../../libindy/target/debug,
+					"/usr/local/Cellar/openssl@1.1/1.1.1m/lib",
+					/usr/local/Cellar/zeromq/4.3.4/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = ../src/libFFI.h;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		38C3BB822791204400435C57 /* Build configuration list for PBXProject "SwiftTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38C3BB8C2791204400435C57 /* Debug */,
+				38C3BB8D2791204400435C57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		38C3BB8E2791204400435C57 /* Build configuration list for PBXNativeTarget "SwiftTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38C3BB8F2791204400435C57 /* Debug */,
+				38C3BB902791204400435C57 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 38C3BB7F2791204400435C57 /* Project object */;
+}

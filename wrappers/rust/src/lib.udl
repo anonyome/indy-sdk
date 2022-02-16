@@ -1,0 +1,311 @@
+[Error]
+enum ErrorCode {
+
+    "Success",
+    "CommonInvalidParam1",
+    "CommonInvalidParam2",
+    "CommonInvalidParam3",
+    "CommonInvalidParam4",
+    "CommonInvalidParam5",
+    "CommonInvalidParam6",
+    "CommonInvalidParam7",
+    "CommonInvalidParam8",
+    "CommonInvalidParam9",
+    "CommonInvalidParam10",
+    "CommonInvalidParam11",
+    "CommonInvalidParam12",
+    "CommonInvalidState",
+    "CommonInvalidStructure",
+    "CommonIOError",
+    "CommonInvalidParam13",
+    "CommonInvalidParam14",
+    "CommonInvalidParam15",
+    "CommonInvalidParam16",
+    "CommonInvalidParam17",
+    "CommonInvalidParam18",
+    "CommonInvalidParam19",
+    "CommonInvalidParam20",
+    "CommonInvalidParam21",
+    "CommonInvalidParam22",
+    "CommonInvalidParam23",
+    "CommonInvalidParam24",
+    "CommonInvalidParam25",
+    "CommonInvalidParam26",
+    "CommonInvalidParam27",
+
+    "WalletInvalidHandle",
+    "WalletUnknownTypeError",
+    "WalletTypeAlreadyRegisteredError",
+    "WalletAlreadyExistsError",
+    "WalletNotFoundError",
+    "WalletIncompatiblePoolError",
+    "WalletAlreadyOpenedError",
+    "WalletAccessFailed",
+    "WalletInputError",
+    "WalletDecodingError",
+    "WalletStorageError",
+    "WalletEncryptionError",
+    "WalletItemNotFound",
+    "WalletItemAlreadyExists",
+    "WalletQueryError",
+
+    "PoolLedgerNotCreatedError",
+    "PoolLedgerInvalidi32",
+    "PoolLedgerTerminated",
+
+    "LedgerNoConsensusError",
+    "LedgerInvalidTransaction",
+    "LedgerSecurityError",
+    "PoolLedgerConfigAlreadyExistsError",
+    "PoolLedgerTimeout",
+    "PoolIncompatibleProtocolVersion",
+    "LedgerNotFound",
+    
+    "AnoncredsRevocationRegistryFullError",
+    "AnoncredsInvalidUserRevocId",
+    "AnoncredsMasterSecretDuplicateNameError",
+    "AnoncredsProofRejected",
+    "AnoncredsCredentialRevoked",
+    "AnoncredsCredDefAlreadyExistsError",
+
+    "UnknownCryptoTypeError",
+
+    "DidAlreadyExistsError",
+
+    "UnknownPaymentMethod",
+    "IncompatiblePaymentError",
+    "PaymentInsufficientFundsError",
+    "PaymentSourceDoesNotExistError",
+    "PaymentOperationNotSupportedError",
+    "PaymentExtraFundsError",
+    "TransactionNotAllowed",
+};
+
+[Error]
+enum IndyError2 {
+    "ErrorResult",
+};
+
+dictionary IndyError {
+    ErrorCode error_code;
+    string message;
+    string? indy_backtrace;
+};
+
+dictionary ErrorDetails {
+    string message;
+    string? backtrace;
+};
+
+dictionary StringString {
+    string i0;
+    string i1;
+};
+
+dictionary StringOptString {
+    string i0;
+    string? i1;
+};
+
+dictionary StringVecU8 {
+    string i0;
+    sequence<u8> i1;
+};
+
+namespace lib {
+
+    //-------------------------------
+    // Lib Functions
+    ErrorCode set_runtime_config([ByRef] string config);
+
+    //-------------------------------
+    // blob_storage Functions
+    [Throws=IndyError2]
+    i32 open_reader([ByRef] string xtype, [ByRef] string config_json);
+
+    [Throws=IndyError2]
+    i32 open_writer([ByRef] string xtype, [ByRef] string config_json);
+
+    //-------------------------------
+    // Wallet Functions
+    [Throws=IndyError2]
+    void register_wallet_storage([ByRef] string xtype);
+    
+    [Throws=IndyError2]
+    void create_wallet([ByRef] string config, [ByRef] string credentials);
+    
+    [Throws=IndyError2]
+    i32 open_wallet([ByRef] string config, [ByRef] string credentials);
+    
+    [Throws=IndyError2]
+    void export_wallet(i32 wallet_handle, [ByRef] string export_config);
+    
+    [Throws=IndyError2]
+    void import_wallet([ByRef] string config, [ByRef] string credentials, [ByRef] string import_config);
+    
+    [Throws=IndyError2]
+    void delete_wallet([ByRef] string config, [ByRef] string credentials);
+    
+    [Throws=IndyError2]
+    void close_wallet(i32 wallet_handle);
+    
+    [Throws=IndyError2]
+    void add_wallet_record(i32 wallet_handle, [ByRef] string xtype, [ByRef] string id, 
+        [ByRef] string value, [ByRef] string tags_json);
+    
+    [Throws=IndyError2]
+    void update_wallet_record_value(i32 wallet_handle, [ByRef] string xtype, 
+        [ByRef] string id, [ByRef] string value);
+    
+    [Throws=IndyError2]
+    void update_wallet_record_tags(i32 wallet_handle, [ByRef] string xtype, 
+        [ByRef] string id, [ByRef] string tags_json);
+    
+    [Throws=IndyError2]
+    void add_wallet_record_tags(i32 wallet_handle, [ByRef] string xtype, 
+        [ByRef] string id, [ByRef] string tags_json);
+    
+    [Throws=IndyError2]
+    void delete_wallet_record_tags(i32 wallet_handle, [ByRef] string xtype, 
+        [ByRef] string id, [ByRef] string tag_names_json);
+    
+    [Throws=IndyError2]
+    void delete_wallet_record(i32 wallet_handle, [ByRef] string xtype, [ByRef] string id);
+    
+    [Throws=IndyError2]
+    string get_wallet_record(i32 wallet_handle, [ByRef] string xtype, [ByRef] string id, 
+        [ByRef] string options_json);
+    
+    [Throws=IndyError2]
+    i32 open_wallet_search(i32 wallet_handle, [ByRef] string xtype, 
+        [ByRef] string query_json, [ByRef] string options_json);
+    
+    [Throws=IndyError2]
+    string fetch_wallet_search_next_records(i32 wallet_handle, i32 wallet_search_handle, u64 count);
+    
+    [Throws=IndyError2]
+    void close_wallet_search(i32 wallet_search_handle);
+    
+    [Throws=IndyError2]
+    string generate_wallet_key([ByRef] string config);
+
+    //-------------------------------
+    // Pool Functions
+    [Throws=IndyError2]
+    void create_pool_ledger_config([ByRef] string pool_name, [ByRef] string pool_config);
+
+    [Throws=IndyError2]
+    i32 open_pool_ledger([ByRef] string pool_name, [ByRef] string config);    
+
+    [Throws=IndyError2]
+    void refresh_pool_ledger(i32 pool_handle);
+
+    [Throws=IndyError2]
+    string list_pools();    
+
+    [Throws=IndyError2]
+    void close_pool_ledger(i32 pool_handle);
+
+    [Throws=IndyError2]
+    void delete_pool_ledger([ByRef] string pool_name);    
+
+    [Throws=IndyError2]
+    void set_protocol_version(u64 protocol_version);
+
+    //-------------------------------
+    // Did Functions    
+    [Throws=IndyError2]
+    StringString create_and_store_my_did(i32 wallet_handle, [ByRef] string did_json);
+
+    [Throws=IndyError2]
+    string replace_keys_start(i32 wallet_handle, [ByRef] string tgt_did, [ByRef] string identity_json);
+    
+    [Throws=IndyError2]
+    void replace_keys_apply(i32 wallet_handle, [ByRef] string tgt_did);
+   
+    [Throws=IndyError2]
+    void store_their_did(i32 wallet_handle, [ByRef] string identity_json);
+    
+    [Throws=IndyError2]
+    string key_for_did(i32 pool_handle, i32 wallet_handle, [ByRef] string did);
+    
+    [Throws=IndyError2]
+    string key_for_local_did(i32 wallet_handle, [ByRef] string did);
+    
+    [Throws=IndyError2]
+    void set_endpoint_for_did(i32 wallet_handle, [ByRef] string did, 
+        [ByRef] string address, [ByRef] string transport_key); 
+    
+    [Throws=IndyError2]
+    StringOptString get_endpoint_for_did(i32 wallet_handle, i32 pool_handle, 
+        [ByRef] string did);
+    
+    [Throws=IndyError2]
+    void set_did_metadata(i32 wallet_handle, [ByRef] string tgt_did, [ByRef] string metadata);
+    
+    [Throws=IndyError2]
+    string get_did_metadata(i32 wallet_handle, [ByRef] string tgt_did);
+    
+    [Throws=IndyError2]
+    string get_my_did_with_metadata(i32 wallet_handle, [ByRef] string my_did);
+    
+    [Throws=IndyError2]
+    string list_my_dids_with_metadata(i32 wallet_handle); 
+    
+    [Throws=IndyError2]
+    string abbreviate_verkey([ByRef] string tgt_did, [ByRef] string verkey);
+    
+    [Throws=IndyError2]
+    string qualify_did(i32 wallet_handle, [ByRef] string did, [ByRef] string method);
+
+    //-------------------------------
+    // Cache Functions
+    [Throws=IndyError2]
+    string get_schema(i32 pool_handle, i32 wallet_handle, 
+        [ByRef] string submitter_did, [ByRef] string id, [ByRef] string options_json); 
+
+    [Throws=IndyError2]
+    string get_cred_def(i32 pool_handle, i32 wallet_handle,
+        [ByRef] string submitter_did, [ByRef] string id, [ByRef] string options_json); 
+
+    [Throws=IndyError2]
+    void purge_schema_cache(i32 wallet_handle, [ByRef] string options_json);
+
+    [Throws=IndyError2]
+    void purge_cred_def_cache(i32 wallet_handle, [ByRef] string options_json);
+
+    //-------------------------------
+    // Crypto Functions
+    [Throws=IndyError2]
+    string create_key(i32 wallet_handle, [ByRef] string my_key_json);
+
+    [Throws=IndyError2]
+    void set_key_metadata(i32 wallet_handle, [ByRef] string verkey, [ByRef] string metadata);
+
+    [Throws=IndyError2]
+    string get_key_metadata(i32 wallet_handle, [ByRef] string verkey);
+
+    [Throws=IndyError2]
+    sequence<u8> sign(i32 wallet_handle, [ByRef] string signer_vk, [ByRef] sequence<u8> message);
+
+    [Throws=IndyError2]
+    boolean verify([ByRef] string signer_vk, [ByRef] sequence<u8> message, [ByRef] sequence<u8> signature); 
+
+    [Throws=IndyError2]
+    sequence<u8> auth_crypt(i32 wallet_handle, [ByRef] string sender_vk, [ByRef] string recipient_vk, sequence<u8> message);
+
+    [Throws=IndyError2]
+    StringVecU8 auth_decrypt(i32 wallet_handle, [ByRef] string recipient_vk, [ByRef] sequence<u8> encrypted_message);    
+
+    [Throws=IndyError2]
+    sequence<u8> anon_crypt([ByRef] string recipient_vk, sequence<u8> message);    
+
+    [Throws=IndyError2]
+    sequence<u8> anon_decrypt(i32 wallet_handle, [ByRef] string recipient_vk, [ByRef] sequence<u8> encrypted_message); 
+
+    [Throws=IndyError2]
+    sequence<u8> pack_message(i32 wallet_handle, [ByRef] sequence<u8> message, [ByRef] string receiver_keys, [ByRef] string sender);
+
+    [Throws=IndyError2]
+    sequence<u8> unpack_message(i32 wallet_handle, [ByRef] sequence<u8> jwe); 
+};
