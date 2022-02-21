@@ -16,7 +16,7 @@ exclude = [
 [lib]
 name = "indyrs"
 path = "src/lib.rs"
-crate-type = ["staticlib", "rlib"]
+crate-type = ["dylib", "staticlib", "rlib"]
 
 [dependencies]
 failure = "0.1.6"
