@@ -203,20 +203,10 @@ build(){
     pushd ${WORKDIR}
     rm -rf target/${TRIPLET}
     cargo clean
-    RUSTFLAGS="-L /tmp/android_build/libindy_arm64/lib" \
+    RUSTFLAGS="-L ${ANDROID_BUILD_FOLDER}/libindy_${ABSOLUTE_ARCH}/lib" \
     cargo build --release --target=${TRIPLET}
     
     popd
-}
-
-package_library(){
-    
-    export PACKAGE_DIR=${ANDROID_BUILD_FOLDER}/libindyrs_${ABSOLUTE_ARCH}
-    
-    mkdir -p ${PACKAGE_DIR}/lib
-    
-    cp "${WORKDIR}/target/${TRIPLET}/release/libindyrs.a" ${PACKAGE_DIR}/lib
-    cp "${WORKDIR}/target/${TRIPLET}/release/libindyrs.so" ${PACKAGE_DIR}/lib
 }
 
 generate_arch_flags ${TARGET_ARCH}
@@ -224,4 +214,4 @@ setup_dependencies
 set_env_vars
 create_standalone_toolchain_and_rust_target
 create_cargo_config
-build && package_library
+build
