@@ -112,6 +112,29 @@ dictionary StringVecU8 {
     sequence<u8> i1;
 };
 
+dictionary StringStringU64 {
+    string i0;
+    string i1;
+    u64 i2;
+};
+
+dictionary StringStringString {
+  string i0;
+  string i1;
+  string i2;
+};
+
+dictionary StringStringString122 {
+  string i0;
+  string? i1;
+  string? i2;
+};
+
+dictionary SearchHandleAndLength {
+    i32 i0;
+    u64 i1;
+};
+
 namespace lib {
 
     //-------------------------------
@@ -308,4 +331,270 @@ namespace lib {
 
     [Throws=IndyError2]
     sequence<u8> unpack_message(i32 wallet_handle, [ByRef] sequence<u8> jwe); 
+
+    //-------------------------------
+    // Metrics Functions
+    [Throws=IndyError2] 
+    string collect_metrics();
+
+    //-------------------------------
+    // Pairwise Functions
+    [Throws=IndyError2]
+    boolean is_pairwise_exists(i32 wallet_handle, [ByRef] string their_did);
+
+    [Throws=IndyError2]
+    void create_pairwise(i32 wallet_handle, [ByRef] string their_did, [ByRef] string my_did, [ByRef] string metadata);
+        
+    [Throws=IndyError2]
+    string list_pairwise(i32 wallet_handle);
+        
+    [Throws=IndyError2]
+    string get_pairwise(i32 wallet_handle, [ByRef] string their_did);
+        
+    [Throws=IndyError2]
+    void set_pairwise_metadata(i32 wallet_handle, [ByRef] string their_did, [ByRef] string metadata);
+
+    //-------------------------------
+    // Ledger Functions
+    [Throws=IndyError2]
+    string sign_and_submit_request(i32 pool_handle, i32 wallet_handle, [ByRef] string submitter_did, [ByRef] string request_json); 
+
+    [Throws=IndyError2]
+    string submit_request(i32 pool_handle, [ByRef] string request_json);
+
+    [Throws=IndyError2]
+    string submit_action(i32 pool_handle, [ByRef] string request_json, [ByRef] string nodes, i32 wait_timeout);
+
+    [Throws=IndyError2]
+    string sign_request(i32 wallet_handle, [ByRef] string submitter_did, [ByRef] string request_json);
+
+    [Throws=IndyError2]
+    string multi_sign_request(i32 wallet_handle, [ByRef] string submitter_did, [ByRef] string request_json);
+
+    [Throws=IndyError2]
+    string build_get_ddo_request([ByRef] string submitter_did, [ByRef] string target_did);
+
+    [Throws=IndyError2]
+    string build_nym_request([ByRef] string submitter_did, [ByRef] string target_did, [ByRef] string verkey, [ByRef] string data, [ByRef] string role);
+
+    [Throws=IndyError2]
+    string build_get_nym_request([ByRef] string submitter_did, [ByRef] string target_did);
+
+    [Throws=IndyError2]
+    string parse_get_nym_response([ByRef] string get_nym_response);
+
+    [Throws=IndyError2]
+    string build_get_txn_request([ByRef] string submitter_did, [ByRef] string ledger_type, i32 seq_no);
+
+    [Throws=IndyError2]
+    string build_attrib_request([ByRef] string submitter_did, [ByRef] string target_did, [ByRef] string hash, [ByRef] string raw, [ByRef] string enc);
+
+    [Throws=IndyError2]
+    string build_get_attrib_request([ByRef] string submitter_did, [ByRef] string target_did, [ByRef] string raw, [ByRef] string hash, [ByRef] string enc);
+
+    [Throws=IndyError2]
+    string build_schema_request([ByRef] string ubmitter_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_get_schema_request([ByRef] string submitter_did, [ByRef] string id);
+
+    [Throws=IndyError2]
+    StringString parse_get_schema_response([ByRef] string get_schema_response);
+
+    [Throws=IndyError2]
+    string build_cred_def_request([ByRef] string submitter_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_get_cred_def_request([ByRef] string submitter_did, [ByRef] string id);
+
+    [Throws=IndyError2]
+    StringString parse_get_cred_def_response([ByRef] string get_cred_def_response);
+
+    [Throws=IndyError2]
+    string build_node_request([ByRef] string submitter_did, [ByRef] string target_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_get_validator_info_request([ByRef] string submitter_did);
+
+    [Throws=IndyError2]
+    string build_pool_config_request([ByRef] string submitter_did, boolean writes, boolean force);
+
+    [Throws=IndyError2]
+    string build_pool_restart_request([ByRef] string submitter_did, [ByRef] string action, [ByRef] string datetime);
+
+    [Throws=IndyError2]
+    string build_pool_upgrade_request([ByRef] string submitter_did, [ByRef] string name, [ByRef] string version, [ByRef] string action, [ByRef] string sha256,
+        u32 upgrade_timeout, [ByRef] string schedule, [ByRef] string justification, boolean reinstall, boolean force, [ByRef] string package);
+
+    [Throws=IndyError2]
+    string build_revoc_reg_def_request([ByRef] string submitter_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_get_revoc_reg_def_request([ByRef] string submitter_did, [ByRef] string id);
+
+    [Throws=IndyError2]
+    StringString parse_get_revoc_reg_def_response([ByRef] string get_revoc_reg_def_response);
+
+    [Throws=IndyError2]
+    string build_revoc_reg_entry_request([ByRef] string submitter_did, [ByRef] string revoc_reg_def_id, [ByRef] string rev_def_type, [ByRef] string value);
+
+    [Throws=IndyError2]
+    string build_get_revoc_reg_request([ByRef] string submitter_did, [ByRef] string revoc_reg_def_id, i64 timestamp);
+
+    [Throws=IndyError2]
+    StringStringU64 parse_get_revoc_reg_response([ByRef] string get_revoc_reg_response);
+
+    [Throws=IndyError2]
+    string build_get_revoc_reg_delta_request([ByRef] string submitter_did, [ByRef] string revoc_reg_def_id, i64 from, i64 to);
+
+    [Throws=IndyError2]
+    StringStringU64 parse_get_revoc_reg_delta_response([ByRef] string get_revoc_reg_delta_response);
+
+    [Throws=IndyError2]
+    string get_response_metadata([ByRef] string response);
+
+    [Throws=IndyError2]
+    string build_auth_rule_request([ByRef] string submitter_did, [ByRef] string txn_type, [ByRef] string action, [ByRef] string field,
+        [ByRef] string old_value, [ByRef] string new_value, [ByRef] string constraint);
+
+    [Throws=IndyError2]
+    string build_auth_rules_request([ByRef] string submitter_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_get_auth_rule_request([ByRef] string submitter_did, [ByRef] string txn_type, [ByRef] string action, [ByRef] string field,
+        [ByRef] string old_value, [ByRef] string new_value);
+
+    [Throws=IndyError2]
+    string build_txn_author_agreement_request([ByRef] string submitter_did, [ByRef] string text, [ByRef] string version, u64? ratification_ts, u64? retirement_ts);
+
+    [Throws=IndyError2]
+    string build_disable_all_txn_author_agreements_request([ByRef] string submitter_did);
+
+    [Throws=IndyError2]
+    string build_get_txn_author_agreement_request([ByRef] string submitter_did, [ByRef] string data);
+
+    [Throws=IndyError2]
+    string build_acceptance_mechanisms_request([ByRef] string submitter_did, [ByRef] string aml, [ByRef] string version, [ByRef] string  aml_context);
+
+    [Throws=IndyError2]
+    string build_get_acceptance_mechanisms_request([ByRef] string submitter_did, i64 timestamp, [ByRef] string version);
+
+    [Throws=IndyError2]
+    string append_txn_author_agreement_acceptance_to_request([ByRef] string request_json,
+        [ByRef] string text, [ByRef] string version, [ByRef] string taa_digest, [ByRef] string mechanism, u64 time);
+
+    [Throws=IndyError2]
+    string append_request_endorser([ByRef] string request_json, [ByRef] string endorser_did);
+
+    [Throws=IndyError2]
+    string build_ledgers_freeze_request([ByRef] string submitter_did, sequence<u64>ledgers_ids);
+
+    [Throws=IndyError2]
+    string build_get_frozen_ledgers_request([ByRef] string submitter_did);
+
+    //-------------------------------
+    // Anoncreds Functions
+    [Throws=IndyError2]
+    StringString issuer_create_schema([ByRef] string issuer_did, [ByRef] string name, [ByRef] string version, [ByRef] string attrs);
+
+    [Throws=IndyError2]
+    StringString issuer_create_and_store_credential_def(i32 wallet_handle, [ByRef] string issuer_did, 
+        [ByRef] string schema_json, [ByRef] string tag, [ByRef] string signature_type, [ByRef] string config_json);
+
+    [Throws=IndyError2]
+    string issuer_rotate_credential_def_start(i32 wallet_handle, [ByRef] string cred_def_id, [ByRef] string config_json);
+
+    [Throws=IndyError2]
+    void issuer_rotate_credential_def_apply(i32 wallet_handle, [ByRef] string cred_def_id);
+
+    [Throws=IndyError2]
+    StringStringString issuer_create_and_store_revoc_reg(i32 wallet_handle,
+        [ByRef] string issuer_did,
+        [ByRef] string revoc_def_type,
+        [ByRef] string tag,
+        [ByRef] string cred_def_id,
+        [ByRef] string config_json,
+        i32 tails_writer_handle);
+
+    [Throws=IndyError2]
+    string issuer_create_credential_offer(i32 wallet_handle, [ByRef] string cred_def_id);
+
+    [Throws=IndyError2]
+    StringStringString122 issuer_create_credential(i32 wallet_handle,
+        [ByRef] string cred_offer_json,
+        [ByRef] string cred_req_json,
+        [ByRef] string cred_values_json,
+        [ByRef] string rev_reg_id,
+        i32 blob_storage_reader_handle);
+
+    [Throws=IndyError2]
+    string issuer_revoke_credential(i32 wallet_handle, i32 blob_storage_reader_cfg_handle, [ByRef] string rev_reg_id, [ByRef] string cred_revoc_id);
+
+    [Throws=IndyError2]
+    string issuer_merge_revocation_registry_deltas([ByRef] string rev_reg_delta_json, [ByRef] string other_rev_reg_delta_json);
+
+    [Throws=IndyError2]
+    string prover_create_master_secret(i32 wallet_handle, [ByRef] string master_secret_id);
+
+    [Throws=IndyError2]
+    string prover_get_credential(i32 wallet_handle, [ByRef] string cred_id);
+
+    [Throws=IndyError2]
+    void prover_delete_credential(i32 wallet_handle, [ByRef] string cred_id);
+
+    [Throws=IndyError2]
+    StringString prover_create_credential_req(i32 wallet_handle, [ByRef] string prover_did, [ByRef] string cred_offer_json, [ByRef] string cred_def_json, [ByRef] string master_secret_id);
+
+    [Throws=IndyError2]
+    void prover_set_credential_attr_tag_policy(i32 wallet_handle, [ByRef] string cred_def_id, [ByRef] string tag_attrs_json, boolean retroactive);
+
+    [Throws=IndyError2]
+    string prover_get_credential_attr_tag_policy(i32 wallet_handle, [ByRef] string cred_id);
+
+    [Throws=IndyError2]
+    string prover_store_credential(i32 wallet_handle, [ByRef] string cred_id, [ByRef] string cred_req_metadata_json, [ByRef] string cred_json, [ByRef] string cred_def_json, [ByRef] string rev_reg_def_json);
+
+    [Throws=IndyError2]
+    string prover_get_credentials(i32 wallet_handle, [ByRef] string filter_json);
+
+    [Throws=IndyError2]
+    SearchHandleAndLength prover_search_credentials(i32 wallet_handle, [ByRef] string query_json);
+
+    [Throws=IndyError2]
+    string prover_fetch_credentials(i32 search_handle, u64 count);
+
+    [Throws=IndyError2]
+    void prover_close_credentials_search(i32 search_handle);
+
+    [Throws=IndyError2]
+    string prover_get_credentials_for_proof_req(i32 wallet_handle, [ByRef] string proof_request_json);
+
+    [Throws=IndyError2]
+    i32 prover_search_credentials_for_proof_req(i32 wallet_handle,
+        [ByRef] string proof_request_json,
+        [ByRef] string extra_query_json);
+
+    [Throws=IndyError2]
+    string prover_fetch_credentials_for_proof_req(i32 search_handle, [ByRef] string item_referent, u64 count);
+
+    [Throws=IndyError2]
+    void prover_close_credentials_search_for_proof_req(i32 search_handle);
+
+    [Throws=IndyError2]
+    string prover_create_proof(i32 wallet_handle, [ByRef] string proof_req_json, [ByRef] string requested_credentials_json, [ByRef] string master_secret_id, [ByRef] string schemas_json, [ByRef] string credential_defs_json, [ByRef] string rev_states_json);
+
+    [Throws=IndyError2]
+    boolean verifier_verify_proof([ByRef] string proof_request_json, [ByRef] string proof_json, [ByRef] string schemas_json, [ByRef] string credential_defs_json, [ByRef] string rev_reg_defs_json, [ByRef] string rev_regs_json);
+
+    [Throws=IndyError2]
+    string create_revocation_state(i32 blob_storage_reader_handle, [ByRef] string rev_reg_def_json, [ByRef] string rev_reg_delta_json, u64 timestamp, [ByRef] string cred_rev_id);
+
+    [Throws=IndyError2]
+    string update_revocation_state(i32 blob_storage_reader_handle, [ByRef] string rev_state_json, [ByRef] string rev_reg_def_json, [ByRef] string rev_reg_delta_json, u64 timestamp, [ByRef] string cred_rev_id);
+
+    [Throws=IndyError2]
+    string generate_nonce();
+
+    [Throws=IndyError2]
+    string to_unqualified([ByRef] string entity);   
 };

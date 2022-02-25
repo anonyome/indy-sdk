@@ -28,6 +28,12 @@ use crate::{WalletHandle, CommandHandle, PoolHandle};
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_sign_and_submit_request(pool_handle: i32, wallet_handle: i32, submitter_did: &str, 
+    request_json: &str) -> Result<String, IndyError> {
+
+    return sign_and_submit_request(pool_handle as PoolHandle, WalletHandle(wallet_handle), submitter_did, request_json).wait();
+}
+
 pub fn sign_and_submit_request(pool_handle: PoolHandle, wallet_handle: WalletHandle, submitter_did: &str, request_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -60,6 +66,11 @@ fn _sign_and_submit_request(command_handle: CommandHandle, pool_handle: PoolHand
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_submit_request(pool_handle: PoolHandle, request_json: &str) -> Result<String, IndyError> {
+
+    return submit_request(pool_handle, request_json).wait();
+}
+
 pub fn submit_request(pool_handle: PoolHandle, request_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -72,6 +83,11 @@ fn _submit_request(command_handle: CommandHandle, pool_handle: PoolHandle, reque
     let request_json = c_str!(request_json);
 
     ErrorCode::from(unsafe { ledger::indy_submit_request(command_handle, pool_handle, request_json.as_ptr(), cb) })
+}
+
+pub fn u_submit_action(pool_handle: PoolHandle, request_json: &str, nodes: Option<&str>, wait_timeout: Option<i32>) -> Result<String, IndyError> {
+
+    return submit_action(pool_handle, request_json, nodes, wait_timeout).wait();
 }
 
 pub fn submit_action(pool_handle: PoolHandle, request_json: &str, nodes: Option<&str>, wait_timeout: Option<i32>) -> Box<dyn Future<Item=String, Error=IndyError>> {
@@ -103,6 +119,11 @@ fn _submit_action(command_handle: CommandHandle, pool_handle: PoolHandle, reques
 ///
 /// # Returns
 /// Signed request json.
+pub fn u_sign_request(wallet_handle: i32, submitter_did: &str, request_json: &str) -> Result<String, IndyError> {
+
+    return sign_request(WalletHandle(wallet_handle), submitter_did, request_json).wait();
+}
+
 pub fn sign_request(wallet_handle: WalletHandle, submitter_did: &str, request_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -130,6 +151,11 @@ fn _sign_request(command_handle: CommandHandle, wallet_handle: WalletHandle, sub
 ///
 /// # Returns
 /// Signed request json.
+pub fn u_multi_sign_request(wallet_handle: i32, submitter_did: &str, request_json: &str) -> Result<String, IndyError> {
+
+    return multi_sign_request(WalletHandle(wallet_handle), submitter_did, request_json).wait();
+}
+
 pub fn multi_sign_request(wallet_handle: WalletHandle, submitter_did: &str, request_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -153,6 +179,11 @@ fn _multi_sign_request(command_handle: CommandHandle, wallet_handle: WalletHandl
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_ddo_request(submitter_did: Option<&str>, target_did: &str) -> Result<String, IndyError> {
+
+    return build_get_ddo_request(submitter_did, target_did).wait();
+}
+
 pub fn build_get_ddo_request(submitter_did: Option<&str>, target_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -187,6 +218,12 @@ fn _build_get_ddo_request(command_handle: CommandHandle, submitter_did: Option<&
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_nym_request(submitter_did: &str, target_did: &str, verkey: Option<&str>, data: Option<&str>, 
+    role: Option<&str>) -> Result<String, IndyError> {
+
+    return build_nym_request(submitter_did, target_did, verkey, data, role).wait();
+}
+
 pub fn build_nym_request(submitter_did: &str, target_did: &str, verkey: Option<&str>, data: Option<&str>, role: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -228,6 +265,11 @@ fn _build_nym_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_nym_request(submitter_did: Option<&str>, target_did: &str) -> Result<String, IndyError> {
+
+    return build_get_nym_request(submitter_did, target_did).wait();
+}
+
 pub fn build_get_nym_request(submitter_did: Option<&str>, target_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -261,6 +303,11 @@ fn _build_get_nym_request(command_handle: CommandHandle, submitter_did: Option<&
 ///                             101 - ENDORSER - equal to TRUST_ANCHOR that will be removed soon
 ///                             201 - NETWORK_MONITOR
 /// }
+pub fn u_parse_get_nym_response(get_nym_response: &str) -> Result<String, IndyError> {
+
+    return parse_get_nym_response(get_nym_response).wait();
+}
+
 pub fn parse_get_nym_response(get_nym_response: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -287,6 +334,11 @@ fn _parse_get_nym_response(command_handle: CommandHandle, get_nym_response: &str
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_txn_request(submitter_did: Option<&str>, ledger_type: Option<&str>, seq_no: i32) -> Result<String, IndyError> {
+
+    return build_get_txn_request(submitter_did, ledger_type, seq_no).wait();
+}
+
 pub fn build_get_txn_request(submitter_did: Option<&str>, ledger_type: Option<&str>, seq_no: i32) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -314,6 +366,11 @@ fn _build_get_txn_request(command_handle: CommandHandle, submitter_did: Option<&
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_attrib_request(submitter_did: &str, target_did: &str, hash: Option<&str>, raw: Option<&str>, enc: Option<&str>) -> Result<String, IndyError> {
+
+    return build_attrib_request(submitter_did, target_did, hash, raw, enc).wait();
+}
+
 pub fn build_attrib_request(submitter_did: &str, target_did: &str, hash: Option<&str>, raw: Option<&str>, enc: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -352,6 +409,11 @@ fn _build_attrib_request(command_handle: CommandHandle, submitter_did: &str, tar
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_attrib_request(submitter_did: Option<&str>, target_did: &str, raw: Option<&str>, hash: Option<&str>, enc: Option<&str>) -> Result<String, IndyError> {
+
+    return build_get_attrib_request(submitter_did, target_did, raw, hash, enc).wait();
+}
+
 pub fn build_get_attrib_request(submitter_did: Option<&str>, target_did: &str, raw: Option<&str>, hash: Option<&str>, enc: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -395,6 +457,11 @@ fn _build_get_attrib_request(command_handle: CommandHandle, submitter_did: Optio
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_schema_request(submitter_did: &str, data: &str) -> Result<String, IndyError> {
+
+    return build_schema_request(submitter_did, data).wait();
+}
+
 pub fn build_schema_request(submitter_did: &str, data: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -418,6 +485,11 @@ fn _build_schema_request(command_handle: CommandHandle, submitter_did: &str, dat
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_schema_request(submitter_did: Option<&str>, id: &str) -> Result<String, IndyError> {
+
+    return build_get_schema_request(submitter_did, id).wait();
+}
+
 pub fn build_get_schema_request(submitter_did: Option<&str>, id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -447,6 +519,11 @@ fn _build_get_schema_request(command_handle: CommandHandle, submitter_did: Optio
 ///     version: Schema's version string
 ///     ver: Version of the Schema json
 /// }
+pub fn u_parse_get_schema_response(get_schema_response: &str) -> Result<(String, String), IndyError> {
+    
+    return parse_get_schema_response(get_schema_response).wait();
+}
+
 pub fn parse_get_schema_response(get_schema_response: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -482,6 +559,11 @@ fn _parse_get_schema_response(command_handle: CommandHandle, get_schema_response
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_cred_def_request(submitter_did: &str, data: &str) -> Result<String, IndyError> {
+
+    return build_cred_def_request(submitter_did, data).wait();
+}
+
 pub fn build_cred_def_request(submitter_did: &str, data: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -506,6 +588,11 @@ fn _build_cred_def_request(command_handle: CommandHandle, submitter_did: &str, d
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_cred_def_request(submitter_did: Option<&str>, id: &str) -> Result<String, IndyError> {
+
+    return build_get_cred_def_request(submitter_did, id).wait();
+}
+
 pub fn build_get_cred_def_request(submitter_did: Option<&str>, id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -539,6 +626,11 @@ fn _build_get_cred_def_request(command_handle: CommandHandle, submitter_did: Opt
 ///     },
 ///     ver: Version of the Credential Definition json
 /// }
+pub fn u_parse_get_cred_def_response(get_cred_def_response: &str) -> Result<(String, String), IndyError> {
+
+    return parse_get_cred_def_response(get_cred_def_response).wait();
+}
+
 pub fn parse_get_cred_def_response(get_cred_def_response: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -571,6 +663,11 @@ fn _parse_get_cred_def_response(command_handle: CommandHandle, get_cred_def_resp
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_node_request(submitter_did: &str, target_did: &str, data: &str) -> Result<String, IndyError> {
+
+    return build_node_request(submitter_did, target_did, data).wait();
+}
+
 pub fn build_node_request(submitter_did: &str, target_did: &str, data: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -594,6 +691,11 @@ fn _build_node_request(command_handle: CommandHandle, submitter_did: &str, targe
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_validator_info_request(submitter_did: &str) -> Result<String, IndyError> {
+
+    return build_get_validator_info_request(submitter_did).wait();
+}
+
 pub fn build_get_validator_info_request(submitter_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -622,6 +724,11 @@ fn _build_get_validator_info_request(command_handle: CommandHandle, submitter_di
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_pool_config_request(submitter_did: &str, writes: bool, force: bool) -> Result<String, IndyError> {
+
+    return build_pool_config_request(submitter_did, writes, force).wait();
+}
+
 pub fn build_pool_config_request(submitter_did: &str, writes: bool, force: bool) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -646,6 +753,11 @@ fn _build_pool_config_request(command_handle: CommandHandle, submitter_did: &str
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_pool_restart_request(submitter_did: &str, action: &str, datetime: Option<&str>) -> Result<String, IndyError> {
+
+    return build_pool_restart_request(submitter_did, action, datetime).wait();
+}
+
 pub fn build_pool_restart_request(submitter_did: &str, action: &str, datetime: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -688,6 +800,31 @@ fn _build_pool_restart_request(command_handle: CommandHandle, submitter_did: &st
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_pool_upgrade_request(submitter_did: &str,
+    name: &str,
+    version: &str,
+    action: &str,
+    sha256: &str,
+    upgrade_timeout: Option<u32>,
+    schedule: Option<&str>,
+    justification: Option<&str>,
+    reinstall: bool,
+    force: bool,
+    package: Option<&str>) -> Result<String, IndyError> {
+
+    return build_pool_upgrade_request(submitter_did,
+        name,
+        version,
+        action,
+        sha256,
+        upgrade_timeout,
+        schedule,
+        justification,
+        reinstall,
+        force,
+        package).wait();
+}
+
 pub fn build_pool_upgrade_request(submitter_did: &str,
                                   name: &str,
                                   version: &str,
@@ -771,6 +908,11 @@ fn _build_pool_upgrade_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_revoc_reg_def_request(submitter_did: &str, data: &str) -> Result<String, IndyError> {
+
+    return build_revoc_reg_def_request(submitter_did, data).wait();
+}
+
 pub fn build_revoc_reg_def_request(submitter_did: &str, data: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -795,6 +937,11 @@ fn _build_revoc_reg_def_request(command_handle: CommandHandle, submitter_did: &s
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_revoc_reg_def_request(submitter_did: Option<&str>, id: &str) -> Result<String, IndyError> {
+
+    return build_get_revoc_reg_def_request(submitter_did, id).wait();
+}
+
 pub fn build_get_revoc_reg_def_request(submitter_did: Option<&str>, id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -832,6 +979,11 @@ fn _build_get_revoc_reg_def_request(command_handle: CommandHandle, submitter_did
 ///     },
 ///     "ver": string - version of revocation registry definition json.
 /// }
+pub fn u_parse_get_revoc_reg_def_response(get_revoc_reg_def_response: &str) -> Result<(String, String), IndyError> {
+
+    return parse_get_revoc_reg_def_response(get_revoc_reg_def_response).wait();
+}
+
 pub fn parse_get_revoc_reg_def_response(get_revoc_reg_def_response: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -869,6 +1021,11 @@ fn _parse_get_revoc_reg_def_response(command_handle: CommandHandle, get_revoc_re
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_revoc_reg_entry_request(submitter_did: &str, revoc_reg_def_id: &str, rev_def_type: &str, value: &str) -> Result<String, IndyError> {
+
+    return build_revoc_reg_entry_request(submitter_did, revoc_reg_def_id, rev_def_type, value).wait();
+}
+
 pub fn build_revoc_reg_entry_request(submitter_did: &str, revoc_reg_def_id: &str, rev_def_type: &str, value: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -896,6 +1053,11 @@ fn _build_revoc_reg_entry_request(command_handle: CommandHandle, submitter_did: 
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_revoc_reg_request(submitter_did: Option<&str>, revoc_reg_def_id: &str, timestamp: i64) -> Result<String, IndyError> {
+
+    return build_get_revoc_reg_request(submitter_did, revoc_reg_def_id, timestamp).wait();
+}
+
 pub fn build_get_revoc_reg_request(submitter_did: Option<&str>, revoc_reg_def_id: &str, timestamp: i64) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -924,6 +1086,11 @@ fn _build_get_revoc_reg_request(command_handle: CommandHandle, submitter_did: Op
 ///     },
 ///     "ver": string - version revocation registry json
 /// }
+pub fn u_parse_get_revoc_reg_response(get_revoc_reg_response: &str) -> Result<(String, String, u64), IndyError> {
+
+    return parse_get_revoc_reg_response(get_revoc_reg_response).wait();
+}
+
 pub fn parse_get_revoc_reg_response(get_revoc_reg_response: &str) -> Box<dyn Future<Item=(String, String, u64), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string_u64();
 
@@ -950,6 +1117,11 @@ fn _parse_get_revoc_reg_response(command_handle: CommandHandle, get_revoc_reg_re
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_revoc_reg_delta_request(submitter_did: Option<&str>, revoc_reg_def_id: &str, from: i64, to: i64) -> Result<String, IndyError> {
+
+    return build_get_revoc_reg_delta_request(submitter_did, revoc_reg_def_id, from, to).wait();
+}
+
 pub fn build_get_revoc_reg_delta_request(submitter_did: Option<&str>, revoc_reg_def_id: &str, from: i64, to: i64) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -981,6 +1153,11 @@ fn _build_get_revoc_reg_delta_request(command_handle: CommandHandle, submitter_d
 ///     },
 ///     "ver": string - version revocation registry delta json
 /// }
+pub fn u_parse_get_revoc_reg_delta_response(get_revoc_reg_delta_response: &str) -> Result<(String, String, u64), IndyError> {
+
+    return parse_get_revoc_reg_delta_response(get_revoc_reg_delta_response).wait();
+}
+
 pub fn parse_get_revoc_reg_delta_response(get_revoc_reg_delta_response: &str) -> Box<dyn Future<Item=(String, String, u64), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string_u64();
 
@@ -1025,6 +1202,11 @@ fn _parse_get_revoc_reg_delta_response(command_handle: CommandHandle, get_revoc_
 ///     "lastSeqNo": Option<u64> - the latest transaction seqNo for particular Node,
 ///     "lastTxnTime": Option<u64> - the latest transaction ordering time for particular Node
 /// }
+pub fn u_get_response_metadata(response: &str) -> Result<String, IndyError> {
+
+    return get_response_metadata(response).wait();
+}
+
 pub fn get_response_metadata(response: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1068,6 +1250,12 @@ fn _get_response_metadata(command_handle: CommandHandle, response: &str, cb: Opt
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_auth_rule_request(submitter_did: &str, txn_type: &str, action: &str, field: &str,
+    old_value: Option<&str>, new_value: Option<&str>, constraint: &str) -> Result<String, IndyError> {
+
+    return build_auth_rule_request(submitter_did, txn_type, action, field, old_value, new_value, constraint).wait();
+}
+
 pub fn build_auth_rule_request(submitter_did: &str, txn_type: &str, action: &str, field: &str,
                                old_value: Option<&str>, new_value: Option<&str>, constraint: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
@@ -1126,6 +1314,11 @@ fn _build_auth_rule_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_auth_rules_request(submitter_did: &str, data: &str) -> Result<String, IndyError> {
+
+    return build_auth_rules_request(submitter_did, data).wait();
+}
+
 pub fn build_auth_rules_request(submitter_did: &str, data: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1165,6 +1358,13 @@ fn _build_auth_rules_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_auth_rule_request(submitter_did: &str, txn_type: &str, action: &str, field: &str,
+    old_value: &str, new_value: &str) -> Result<String, IndyError> {
+
+    return build_get_auth_rule_request(Some(submitter_did), Some(txn_type), Some(action), Some(field), 
+        Some(old_value), Some(new_value)).wait();
+}
+
 pub fn build_get_auth_rule_request(submitter_did: Option<&str>, txn_type: Option<&str>, action: Option<&str>, field: Option<&str>,
                                    old_value: Option<&str>, new_value: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
@@ -1232,6 +1432,12 @@ fn _build_get_auth_rule_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_txn_author_agreement_request(submitter_did: &str, text: &str, version: &str, 
+    ratification_ts: Option<u64>, retirement_ts: Option<u64>) -> Result<String, IndyError> {
+
+    return build_txn_author_agreement_request(submitter_did, Some(text), version, ratification_ts, retirement_ts).wait();
+}
+
 pub fn build_txn_author_agreement_request(submitter_did: &str, text: Option<&str>, version: &str, ratification_ts: Option<u64>, retirement_ts: Option<u64>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1272,6 +1478,11 @@ fn _build_txn_author_agreement_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_disable_all_txn_author_agreements_request(submitter_did: &str) -> Result<String, IndyError> {
+
+    return build_disable_all_txn_author_agreements_request(submitter_did).wait();
+}
+
 pub fn build_disable_all_txn_author_agreements_request(submitter_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1307,6 +1518,11 @@ fn _build_disable_all_txn_author_agreements_request(command_handle: CommandHandl
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_txn_author_agreement_request(submitter_did: Option<&str>, data: Option<&str>) -> Result<String, IndyError> {
+
+    return build_get_txn_author_agreement_request(submitter_did, data).wait();
+}
+
 pub fn build_get_txn_author_agreement_request(submitter_did: Option<&str>, data: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1347,6 +1563,11 @@ fn _build_get_txn_author_agreement_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_acceptance_mechanisms_request(submitter_did: &str, aml: &str, version: &str, aml_context: Option<&str>) -> Result<String, IndyError> {
+
+    return build_acceptance_mechanisms_request(submitter_did, aml, version, aml_context).wait();
+}
+
 pub fn build_acceptance_mechanisms_request(submitter_did: &str, aml: &str, version: &str, aml_context: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1388,6 +1609,11 @@ fn _build_acceptance_mechanisms_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Request result as json.
+pub fn u_build_get_acceptance_mechanisms_request(submitter_did: &str, timestamp: i64, version: &str) -> Result<String, IndyError> {
+
+    return build_get_acceptance_mechanisms_request(Some(submitter_did), Some(timestamp), Some(version)).wait();
+}
+
 pub fn build_get_acceptance_mechanisms_request(submitter_did: Option<&str>, timestamp: Option<i64>, version: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1434,6 +1660,16 @@ fn _build_get_acceptance_mechanisms_request(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Updated request result as json.
+pub fn u_append_txn_author_agreement_acceptance_to_request(request_json: &str,
+    text: Option<&str>,
+    version: Option<&str>,
+    taa_digest: Option<&str>,
+    mechanism: &str,
+    time: u64) -> Result<String, IndyError> {
+
+    return append_txn_author_agreement_acceptance_to_request(request_json, text, version, taa_digest, mechanism, time).wait();
+}
+
 pub fn append_txn_author_agreement_acceptance_to_request(request_json: &str,
                                                          text: Option<&str>,
                                                          version: Option<&str>,
@@ -1489,6 +1725,11 @@ fn _append_txn_author_agreement_acceptance_to_request(command_handle: CommandHan
 ///                   The Endorser's DID must be present on the ledger.
 /// # Returns
 /// Updated request result as json.
+pub fn u_append_request_endorser(request_json: &str, endorser_did: &str) -> Result<String, IndyError> {
+
+    return append_request_endorser(request_json, endorser_did).wait();
+}
+
 pub fn append_request_endorser(request_json: &str,
                                endorser_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
@@ -1522,6 +1763,11 @@ fn _append_request_endorser(command_handle: CommandHandle,
 ///
 /// # Returns
 /// Updated request result as json.
+pub fn u_build_ledgers_freeze_request(submitter_did: &str, ledgers_ids: Vec<u64>) -> Result<String, IndyError> {
+
+    return build_ledgers_freeze_request(submitter_did, ledgers_ids).wait();
+}
+
 pub fn build_ledgers_freeze_request(submitter_did: &str, ledgers_ids: Vec<u64>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
     let json_ledgers_ids: &str = &json!(ledgers_ids).to_string();
@@ -1558,6 +1804,11 @@ fn _build_ledgers_freeze_request(command_handle: CommandHandle, submitter_did: &
 ///     },
 ///     ...
 /// }
+pub fn u_build_get_frozen_ledgers_request(submitter_did: &str) -> Result<String, IndyError> {
+
+    return build_get_frozen_ledgers_request(submitter_did).wait();
+}
+
 pub fn build_get_frozen_ledgers_request(submitter_did: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
     let err = _build_get_frozen_ledgers_request(command_handle, submitter_did, cb);

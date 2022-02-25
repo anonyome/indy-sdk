@@ -13,6 +13,11 @@ use crate::CommandHandle;
 ///
 /// # Returns
 /// String with a dictionary of metrics in JSON format. Where keys are names of metrics.
+pub fn u_collect_metrics() -> Result<String, IndyError> {
+
+    return collect_metrics().wait();
+}
+
 pub fn collect_metrics() -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 

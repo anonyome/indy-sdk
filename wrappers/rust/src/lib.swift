@@ -19,13 +19,13 @@ private extension RustBuffer {
     }
 
     static func from(_ ptr: UnsafeBufferPointer<UInt8>) -> RustBuffer {
-        try! rustCall { ffi_lib_16d0_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
+        try! rustCall { ffi_lib_2f6d_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
     }
 
     // Frees the buffer in place.
     // The buffer must not be used after this is called.
     func deallocate() {
-        try! rustCall { ffi_lib_16d0_rustbuffer_free(self, $0) }
+        try! rustCall { ffi_lib_2f6d_rustbuffer_free(self, $0) }
     }
 }
 
@@ -385,7 +385,7 @@ public func setRuntimeConfig(config: String) -> ErrorCode {
     let _retval = try!
 
         rustCall {
-            lib_16d0_set_runtime_config(config.lower(), $0)
+            lib_2f6d_set_runtime_config(config.lower(), $0)
         }
     return try! ErrorCode.lift(_retval)
 }
@@ -394,7 +394,7 @@ public func openReader(xtype: String, configJson: String) throws -> Int32 {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_open_reader(xtype.lower(), configJson.lower(), $0)
+            lib_2f6d_open_reader(xtype.lower(), configJson.lower(), $0)
         }
     return try Int32.lift(_retval)
 }
@@ -403,7 +403,7 @@ public func openWriter(xtype: String, configJson: String) throws -> Int32 {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_open_writer(xtype.lower(), configJson.lower(), $0)
+            lib_2f6d_open_writer(xtype.lower(), configJson.lower(), $0)
         }
     return try Int32.lift(_retval)
 }
@@ -412,7 +412,7 @@ public func registerWalletStorage(xtype: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_register_wallet_storage(xtype.lower(), $0)
+            lib_2f6d_register_wallet_storage(xtype.lower(), $0)
         }
 }
 
@@ -420,7 +420,7 @@ public func createWallet(config: String, credentials: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_create_wallet(config.lower(), credentials.lower(), $0)
+            lib_2f6d_create_wallet(config.lower(), credentials.lower(), $0)
         }
 }
 
@@ -428,7 +428,7 @@ public func openWallet(config: String, credentials: String) throws -> Int32 {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_open_wallet(config.lower(), credentials.lower(), $0)
+            lib_2f6d_open_wallet(config.lower(), credentials.lower(), $0)
         }
     return try Int32.lift(_retval)
 }
@@ -437,7 +437,7 @@ public func exportWallet(walletHandle: Int32, exportConfig: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_export_wallet(walletHandle.lower(), exportConfig.lower(), $0)
+            lib_2f6d_export_wallet(walletHandle.lower(), exportConfig.lower(), $0)
         }
 }
 
@@ -445,7 +445,7 @@ public func importWallet(config: String, credentials: String, importConfig: Stri
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_import_wallet(config.lower(), credentials.lower(), importConfig.lower(), $0)
+            lib_2f6d_import_wallet(config.lower(), credentials.lower(), importConfig.lower(), $0)
         }
 }
 
@@ -453,7 +453,7 @@ public func deleteWallet(config: String, credentials: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_delete_wallet(config.lower(), credentials.lower(), $0)
+            lib_2f6d_delete_wallet(config.lower(), credentials.lower(), $0)
         }
 }
 
@@ -461,7 +461,7 @@ public func closeWallet(walletHandle: Int32) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_close_wallet(walletHandle.lower(), $0)
+            lib_2f6d_close_wallet(walletHandle.lower(), $0)
         }
 }
 
@@ -469,7 +469,7 @@ public func addWalletRecord(walletHandle: Int32, xtype: String, id: String, valu
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_add_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), value.lower(), tagsJson.lower(), $0)
+            lib_2f6d_add_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), value.lower(), tagsJson.lower(), $0)
         }
 }
 
@@ -477,7 +477,7 @@ public func updateWalletRecordValue(walletHandle: Int32, xtype: String, id: Stri
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_update_wallet_record_value(walletHandle.lower(), xtype.lower(), id.lower(), value.lower(), $0)
+            lib_2f6d_update_wallet_record_value(walletHandle.lower(), xtype.lower(), id.lower(), value.lower(), $0)
         }
 }
 
@@ -485,7 +485,7 @@ public func updateWalletRecordTags(walletHandle: Int32, xtype: String, id: Strin
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_update_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagsJson.lower(), $0)
+            lib_2f6d_update_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagsJson.lower(), $0)
         }
 }
 
@@ -493,7 +493,7 @@ public func addWalletRecordTags(walletHandle: Int32, xtype: String, id: String, 
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_add_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagsJson.lower(), $0)
+            lib_2f6d_add_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagsJson.lower(), $0)
         }
 }
 
@@ -501,7 +501,7 @@ public func deleteWalletRecordTags(walletHandle: Int32, xtype: String, id: Strin
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_delete_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagNamesJson.lower(), $0)
+            lib_2f6d_delete_wallet_record_tags(walletHandle.lower(), xtype.lower(), id.lower(), tagNamesJson.lower(), $0)
         }
 }
 
@@ -509,7 +509,7 @@ public func deleteWalletRecord(walletHandle: Int32, xtype: String, id: String) t
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_delete_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), $0)
+            lib_2f6d_delete_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), $0)
         }
 }
 
@@ -517,7 +517,7 @@ public func getWalletRecord(walletHandle: Int32, xtype: String, id: String, opti
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), optionsJson.lower(), $0)
+            lib_2f6d_get_wallet_record(walletHandle.lower(), xtype.lower(), id.lower(), optionsJson.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -526,7 +526,7 @@ public func openWalletSearch(walletHandle: Int32, xtype: String, queryJson: Stri
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_open_wallet_search(walletHandle.lower(), xtype.lower(), queryJson.lower(), optionsJson.lower(), $0)
+            lib_2f6d_open_wallet_search(walletHandle.lower(), xtype.lower(), queryJson.lower(), optionsJson.lower(), $0)
         }
     return try Int32.lift(_retval)
 }
@@ -535,7 +535,7 @@ public func fetchWalletSearchNextRecords(walletHandle: Int32, walletSearchHandle
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_fetch_wallet_search_next_records(walletHandle.lower(), walletSearchHandle.lower(), count.lower(), $0)
+            lib_2f6d_fetch_wallet_search_next_records(walletHandle.lower(), walletSearchHandle.lower(), count.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -544,7 +544,7 @@ public func closeWalletSearch(walletSearchHandle: Int32) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_close_wallet_search(walletSearchHandle.lower(), $0)
+            lib_2f6d_close_wallet_search(walletSearchHandle.lower(), $0)
         }
 }
 
@@ -552,7 +552,7 @@ public func generateWalletKey(config: String) throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_generate_wallet_key(config.lower(), $0)
+            lib_2f6d_generate_wallet_key(config.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -561,7 +561,7 @@ public func createPoolLedgerConfig(poolName: String, poolConfig: String) throws 
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_create_pool_ledger_config(poolName.lower(), poolConfig.lower(), $0)
+            lib_2f6d_create_pool_ledger_config(poolName.lower(), poolConfig.lower(), $0)
         }
 }
 
@@ -569,7 +569,7 @@ public func openPoolLedger(poolName: String, config: String) throws -> Int32 {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_open_pool_ledger(poolName.lower(), config.lower(), $0)
+            lib_2f6d_open_pool_ledger(poolName.lower(), config.lower(), $0)
         }
     return try Int32.lift(_retval)
 }
@@ -578,7 +578,7 @@ public func refreshPoolLedger(poolHandle: Int32) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_refresh_pool_ledger(poolHandle.lower(), $0)
+            lib_2f6d_refresh_pool_ledger(poolHandle.lower(), $0)
         }
 }
 
@@ -586,7 +586,7 @@ public func listPools() throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_list_pools($0)
+            lib_2f6d_list_pools($0)
         }
     return try String.lift(_retval)
 }
@@ -595,7 +595,7 @@ public func closePoolLedger(poolHandle: Int32) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_close_pool_ledger(poolHandle.lower(), $0)
+            lib_2f6d_close_pool_ledger(poolHandle.lower(), $0)
         }
 }
 
@@ -603,7 +603,7 @@ public func deletePoolLedger(poolName: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_delete_pool_ledger(poolName.lower(), $0)
+            lib_2f6d_delete_pool_ledger(poolName.lower(), $0)
         }
 }
 
@@ -611,7 +611,7 @@ public func setProtocolVersion(protocolVersion: UInt64) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_set_protocol_version(protocolVersion.lower(), $0)
+            lib_2f6d_set_protocol_version(protocolVersion.lower(), $0)
         }
 }
 
@@ -619,7 +619,7 @@ public func createAndStoreMyDid(walletHandle: Int32, didJson: String) throws -> 
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_create_and_store_my_did(walletHandle.lower(), didJson.lower(), $0)
+            lib_2f6d_create_and_store_my_did(walletHandle.lower(), didJson.lower(), $0)
         }
     return try StringString.lift(_retval)
 }
@@ -628,7 +628,7 @@ public func replaceKeysStart(walletHandle: Int32, tgtDid: String, identityJson: 
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_replace_keys_start(walletHandle.lower(), tgtDid.lower(), identityJson.lower(), $0)
+            lib_2f6d_replace_keys_start(walletHandle.lower(), tgtDid.lower(), identityJson.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -637,7 +637,7 @@ public func replaceKeysApply(walletHandle: Int32, tgtDid: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_replace_keys_apply(walletHandle.lower(), tgtDid.lower(), $0)
+            lib_2f6d_replace_keys_apply(walletHandle.lower(), tgtDid.lower(), $0)
         }
 }
 
@@ -645,7 +645,7 @@ public func storeTheirDid(walletHandle: Int32, identityJson: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_store_their_did(walletHandle.lower(), identityJson.lower(), $0)
+            lib_2f6d_store_their_did(walletHandle.lower(), identityJson.lower(), $0)
         }
 }
 
@@ -653,7 +653,7 @@ public func keyForDid(poolHandle: Int32, walletHandle: Int32, did: String) throw
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_key_for_did(poolHandle.lower(), walletHandle.lower(), did.lower(), $0)
+            lib_2f6d_key_for_did(poolHandle.lower(), walletHandle.lower(), did.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -662,7 +662,7 @@ public func keyForLocalDid(walletHandle: Int32, did: String) throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_key_for_local_did(walletHandle.lower(), did.lower(), $0)
+            lib_2f6d_key_for_local_did(walletHandle.lower(), did.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -671,7 +671,7 @@ public func setEndpointForDid(walletHandle: Int32, did: String, address: String,
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_set_endpoint_for_did(walletHandle.lower(), did.lower(), address.lower(), transportKey.lower(), $0)
+            lib_2f6d_set_endpoint_for_did(walletHandle.lower(), did.lower(), address.lower(), transportKey.lower(), $0)
         }
 }
 
@@ -679,7 +679,7 @@ public func getEndpointForDid(walletHandle: Int32, poolHandle: Int32, did: Strin
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_endpoint_for_did(walletHandle.lower(), poolHandle.lower(), did.lower(), $0)
+            lib_2f6d_get_endpoint_for_did(walletHandle.lower(), poolHandle.lower(), did.lower(), $0)
         }
     return try StringOptString.lift(_retval)
 }
@@ -688,7 +688,7 @@ public func setDidMetadata(walletHandle: Int32, tgtDid: String, metadata: String
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_set_did_metadata(walletHandle.lower(), tgtDid.lower(), metadata.lower(), $0)
+            lib_2f6d_set_did_metadata(walletHandle.lower(), tgtDid.lower(), metadata.lower(), $0)
         }
 }
 
@@ -696,7 +696,7 @@ public func getDidMetadata(walletHandle: Int32, tgtDid: String) throws -> String
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_did_metadata(walletHandle.lower(), tgtDid.lower(), $0)
+            lib_2f6d_get_did_metadata(walletHandle.lower(), tgtDid.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -705,7 +705,7 @@ public func getMyDidWithMetadata(walletHandle: Int32, myDid: String) throws -> S
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_my_did_with_metadata(walletHandle.lower(), myDid.lower(), $0)
+            lib_2f6d_get_my_did_with_metadata(walletHandle.lower(), myDid.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -714,7 +714,7 @@ public func listMyDidsWithMetadata(walletHandle: Int32) throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_list_my_dids_with_metadata(walletHandle.lower(), $0)
+            lib_2f6d_list_my_dids_with_metadata(walletHandle.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -723,7 +723,7 @@ public func abbreviateVerkey(tgtDid: String, verkey: String) throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_abbreviate_verkey(tgtDid.lower(), verkey.lower(), $0)
+            lib_2f6d_abbreviate_verkey(tgtDid.lower(), verkey.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -732,7 +732,7 @@ public func qualifyDid(walletHandle: Int32, did: String, method: String) throws 
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_qualify_did(walletHandle.lower(), did.lower(), method.lower(), $0)
+            lib_2f6d_qualify_did(walletHandle.lower(), did.lower(), method.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -741,7 +741,7 @@ public func getSchema(poolHandle: Int32, walletHandle: Int32, submitterDid: Stri
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_schema(poolHandle.lower(), walletHandle.lower(), submitterDid.lower(), id.lower(), optionsJson.lower(), $0)
+            lib_2f6d_get_schema(poolHandle.lower(), walletHandle.lower(), submitterDid.lower(), id.lower(), optionsJson.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -750,7 +750,7 @@ public func getCredDef(poolHandle: Int32, walletHandle: Int32, submitterDid: Str
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_cred_def(poolHandle.lower(), walletHandle.lower(), submitterDid.lower(), id.lower(), optionsJson.lower(), $0)
+            lib_2f6d_get_cred_def(poolHandle.lower(), walletHandle.lower(), submitterDid.lower(), id.lower(), optionsJson.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -759,7 +759,7 @@ public func purgeSchemaCache(walletHandle: Int32, optionsJson: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_purge_schema_cache(walletHandle.lower(), optionsJson.lower(), $0)
+            lib_2f6d_purge_schema_cache(walletHandle.lower(), optionsJson.lower(), $0)
         }
 }
 
@@ -767,7 +767,7 @@ public func purgeCredDefCache(walletHandle: Int32, optionsJson: String) throws {
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_purge_cred_def_cache(walletHandle.lower(), optionsJson.lower(), $0)
+            lib_2f6d_purge_cred_def_cache(walletHandle.lower(), optionsJson.lower(), $0)
         }
 }
 
@@ -775,7 +775,7 @@ public func createKey(walletHandle: Int32, myKeyJson: String) throws -> String {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_create_key(walletHandle.lower(), myKeyJson.lower(), $0)
+            lib_2f6d_create_key(walletHandle.lower(), myKeyJson.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -784,7 +784,7 @@ public func setKeyMetadata(walletHandle: Int32, verkey: String, metadata: String
     try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_set_key_metadata(walletHandle.lower(), verkey.lower(), metadata.lower(), $0)
+            lib_2f6d_set_key_metadata(walletHandle.lower(), verkey.lower(), metadata.lower(), $0)
         }
 }
 
@@ -792,7 +792,7 @@ public func getKeyMetadata(walletHandle: Int32, verkey: String) throws -> String
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_get_key_metadata(walletHandle.lower(), verkey.lower(), $0)
+            lib_2f6d_get_key_metadata(walletHandle.lower(), verkey.lower(), $0)
         }
     return try String.lift(_retval)
 }
@@ -801,7 +801,7 @@ public func sign(walletHandle: Int32, signerVk: String, message: [UInt8]) throws
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_sign(walletHandle.lower(), signerVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
+            lib_2f6d_sign(walletHandle.lower(), signerVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
 }
@@ -810,7 +810,7 @@ public func verify(signerVk: String, message: [UInt8], signature: [UInt8]) throw
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_verify(signerVk.lower(), FfiConverterSequenceUInt8.lower(message), FfiConverterSequenceUInt8.lower(signature), $0)
+            lib_2f6d_verify(signerVk.lower(), FfiConverterSequenceUInt8.lower(message), FfiConverterSequenceUInt8.lower(signature), $0)
         }
     return try Bool.lift(_retval)
 }
@@ -819,7 +819,7 @@ public func authCrypt(walletHandle: Int32, senderVk: String, recipientVk: String
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_auth_crypt(walletHandle.lower(), senderVk.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
+            lib_2f6d_auth_crypt(walletHandle.lower(), senderVk.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
 }
@@ -828,7 +828,7 @@ public func authDecrypt(walletHandle: Int32, recipientVk: String, encryptedMessa
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_auth_decrypt(walletHandle.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(encryptedMessage), $0)
+            lib_2f6d_auth_decrypt(walletHandle.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(encryptedMessage), $0)
         }
     return try StringVecU8.lift(_retval)
 }
@@ -837,7 +837,7 @@ public func anonCrypt(recipientVk: String, message: [UInt8]) throws -> [UInt8] {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_anon_crypt(recipientVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
+            lib_2f6d_anon_crypt(recipientVk.lower(), FfiConverterSequenceUInt8.lower(message), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
 }
@@ -846,7 +846,7 @@ public func anonDecrypt(walletHandle: Int32, recipientVk: String, encryptedMessa
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_anon_decrypt(walletHandle.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(encryptedMessage), $0)
+            lib_2f6d_anon_decrypt(walletHandle.lower(), recipientVk.lower(), FfiConverterSequenceUInt8.lower(encryptedMessage), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
 }
@@ -855,7 +855,7 @@ public func packMessage(walletHandle: Int32, message: [UInt8], receiverKeys: Str
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_pack_message(walletHandle.lower(), FfiConverterSequenceUInt8.lower(message), receiverKeys.lower(), sender.lower(), $0)
+            lib_2f6d_pack_message(walletHandle.lower(), FfiConverterSequenceUInt8.lower(message), receiverKeys.lower(), sender.lower(), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
 }
@@ -864,9 +864,722 @@ public func unpackMessage(walletHandle: Int32, jwe: [UInt8]) throws -> [UInt8] {
     let _retval = try
 
         rustCallWithError(IndyError2.self) {
-            lib_16d0_unpack_message(walletHandle.lower(), FfiConverterSequenceUInt8.lower(jwe), $0)
+            lib_2f6d_unpack_message(walletHandle.lower(), FfiConverterSequenceUInt8.lower(jwe), $0)
         }
     return try FfiConverterSequenceUInt8.lift(_retval)
+}
+
+public func collectMetrics() throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_collect_metrics($0)
+        }
+    return try String.lift(_retval)
+}
+
+public func isPairwiseExists(walletHandle: Int32, theirDid: String) throws -> Bool {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_is_pairwise_exists(walletHandle.lower(), theirDid.lower(), $0)
+        }
+    return try Bool.lift(_retval)
+}
+
+public func createPairwise(walletHandle: Int32, theirDid: String, myDid: String, metadata: String) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_create_pairwise(walletHandle.lower(), theirDid.lower(), myDid.lower(), metadata.lower(), $0)
+        }
+}
+
+public func listPairwise(walletHandle: Int32) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_list_pairwise(walletHandle.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func getPairwise(walletHandle: Int32, theirDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_get_pairwise(walletHandle.lower(), theirDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func setPairwiseMetadata(walletHandle: Int32, theirDid: String, metadata: String) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_set_pairwise_metadata(walletHandle.lower(), theirDid.lower(), metadata.lower(), $0)
+        }
+}
+
+public func signAndSubmitRequest(poolHandle: Int32, walletHandle: Int32, submitterDid: String, requestJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_sign_and_submit_request(poolHandle.lower(), walletHandle.lower(), submitterDid.lower(), requestJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func submitRequest(poolHandle: Int32, requestJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_submit_request(poolHandle.lower(), requestJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func submitAction(poolHandle: Int32, requestJson: String, nodes: String, waitTimeout: Int32) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_submit_action(poolHandle.lower(), requestJson.lower(), nodes.lower(), waitTimeout.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func signRequest(walletHandle: Int32, submitterDid: String, requestJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_sign_request(walletHandle.lower(), submitterDid.lower(), requestJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func multiSignRequest(walletHandle: Int32, submitterDid: String, requestJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_multi_sign_request(walletHandle.lower(), submitterDid.lower(), requestJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetDdoRequest(submitterDid: String, targetDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_ddo_request(submitterDid.lower(), targetDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildNymRequest(submitterDid: String, targetDid: String, verkey: String, data: String, role: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_nym_request(submitterDid.lower(), targetDid.lower(), verkey.lower(), data.lower(), role.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetNymRequest(submitterDid: String, targetDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_nym_request(submitterDid.lower(), targetDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetNymResponse(getNymResponse: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_nym_response(getNymResponse.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetTxnRequest(submitterDid: String, ledgerType: String, seqNo: Int32) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_txn_request(submitterDid.lower(), ledgerType.lower(), seqNo.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildAttribRequest(submitterDid: String, targetDid: String, hash: String, raw: String, enc: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_attrib_request(submitterDid.lower(), targetDid.lower(), hash.lower(), raw.lower(), enc.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetAttribRequest(submitterDid: String, targetDid: String, raw: String, hash: String, enc: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_attrib_request(submitterDid.lower(), targetDid.lower(), raw.lower(), hash.lower(), enc.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildSchemaRequest(ubmitterDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_schema_request(ubmitterDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetSchemaRequest(submitterDid: String, id: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_schema_request(submitterDid.lower(), id.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetSchemaResponse(getSchemaResponse: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_schema_response(getSchemaResponse.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func buildCredDefRequest(submitterDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_cred_def_request(submitterDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetCredDefRequest(submitterDid: String, id: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_cred_def_request(submitterDid.lower(), id.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetCredDefResponse(getCredDefResponse: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_cred_def_response(getCredDefResponse.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func buildNodeRequest(submitterDid: String, targetDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_node_request(submitterDid.lower(), targetDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetValidatorInfoRequest(submitterDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_validator_info_request(submitterDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildPoolConfigRequest(submitterDid: String, writes: Bool, force: Bool) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_pool_config_request(submitterDid.lower(), writes.lower(), force.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildPoolRestartRequest(submitterDid: String, action: String, datetime: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_pool_restart_request(submitterDid.lower(), action.lower(), datetime.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildPoolUpgradeRequest(submitterDid: String, name: String, version: String, action: String, sha256: String, upgradeTimeout: UInt32, schedule: String, justification: String, reinstall: Bool, force: Bool, package: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_pool_upgrade_request(submitterDid.lower(), name.lower(), version.lower(), action.lower(), sha256.lower(), upgradeTimeout.lower(), schedule.lower(), justification.lower(), reinstall.lower(), force.lower(), package.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildRevocRegDefRequest(submitterDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_revoc_reg_def_request(submitterDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetRevocRegDefRequest(submitterDid: String, id: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_revoc_reg_def_request(submitterDid.lower(), id.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetRevocRegDefResponse(getRevocRegDefResponse: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_revoc_reg_def_response(getRevocRegDefResponse.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func buildRevocRegEntryRequest(submitterDid: String, revocRegDefId: String, revDefType: String, value: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_revoc_reg_entry_request(submitterDid.lower(), revocRegDefId.lower(), revDefType.lower(), value.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetRevocRegRequest(submitterDid: String, revocRegDefId: String, timestamp: Int64) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_revoc_reg_request(submitterDid.lower(), revocRegDefId.lower(), timestamp.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetRevocRegResponse(getRevocRegResponse: String) throws -> StringStringU64 {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_revoc_reg_response(getRevocRegResponse.lower(), $0)
+        }
+    return try StringStringU64.lift(_retval)
+}
+
+public func buildGetRevocRegDeltaRequest(submitterDid: String, revocRegDefId: String, from: Int64, to: Int64) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_revoc_reg_delta_request(submitterDid.lower(), revocRegDefId.lower(), from.lower(), to.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func parseGetRevocRegDeltaResponse(getRevocRegDeltaResponse: String) throws -> StringStringU64 {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_parse_get_revoc_reg_delta_response(getRevocRegDeltaResponse.lower(), $0)
+        }
+    return try StringStringU64.lift(_retval)
+}
+
+public func getResponseMetadata(response: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_get_response_metadata(response.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildAuthRuleRequest(submitterDid: String, txnType: String, action: String, field: String, oldValue: String, newValue: String, constraint: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_auth_rule_request(submitterDid.lower(), txnType.lower(), action.lower(), field.lower(), oldValue.lower(), newValue.lower(), constraint.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildAuthRulesRequest(submitterDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_auth_rules_request(submitterDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetAuthRuleRequest(submitterDid: String, txnType: String, action: String, field: String, oldValue: String, newValue: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_auth_rule_request(submitterDid.lower(), txnType.lower(), action.lower(), field.lower(), oldValue.lower(), newValue.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildTxnAuthorAgreementRequest(submitterDid: String, text: String, version: String, ratificationTs: UInt64?, retirementTs: UInt64?) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_txn_author_agreement_request(submitterDid.lower(), text.lower(), version.lower(), FfiConverterOptionUInt64.lower(ratificationTs), FfiConverterOptionUInt64.lower(retirementTs), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildDisableAllTxnAuthorAgreementsRequest(submitterDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_disable_all_txn_author_agreements_request(submitterDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetTxnAuthorAgreementRequest(submitterDid: String, data: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_txn_author_agreement_request(submitterDid.lower(), data.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildAcceptanceMechanismsRequest(submitterDid: String, aml: String, version: String, amlContext: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_acceptance_mechanisms_request(submitterDid.lower(), aml.lower(), version.lower(), amlContext.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetAcceptanceMechanismsRequest(submitterDid: String, timestamp: Int64, version: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_acceptance_mechanisms_request(submitterDid.lower(), timestamp.lower(), version.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func appendTxnAuthorAgreementAcceptanceToRequest(requestJson: String, text: String, version: String, taaDigest: String, mechanism: String, time: UInt64) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_append_txn_author_agreement_acceptance_to_request(requestJson.lower(), text.lower(), version.lower(), taaDigest.lower(), mechanism.lower(), time.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func appendRequestEndorser(requestJson: String, endorserDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_append_request_endorser(requestJson.lower(), endorserDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildLedgersFreezeRequest(submitterDid: String, ledgersIds: [UInt64]) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_ledgers_freeze_request(submitterDid.lower(), FfiConverterSequenceUInt64.lower(ledgersIds), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func buildGetFrozenLedgersRequest(submitterDid: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_build_get_frozen_ledgers_request(submitterDid.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func issuerCreateSchema(issuerDid: String, name: String, version: String, attrs: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_create_schema(issuerDid.lower(), name.lower(), version.lower(), attrs.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func issuerCreateAndStoreCredentialDef(walletHandle: Int32, issuerDid: String, schemaJson: String, tag: String, signatureType: String, configJson: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_create_and_store_credential_def(walletHandle.lower(), issuerDid.lower(), schemaJson.lower(), tag.lower(), signatureType.lower(), configJson.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func issuerRotateCredentialDefStart(walletHandle: Int32, credDefId: String, configJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_rotate_credential_def_start(walletHandle.lower(), credDefId.lower(), configJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func issuerRotateCredentialDefApply(walletHandle: Int32, credDefId: String) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_rotate_credential_def_apply(walletHandle.lower(), credDefId.lower(), $0)
+        }
+}
+
+public func issuerCreateAndStoreRevocReg(walletHandle: Int32, issuerDid: String, revocDefType: String, tag: String, credDefId: String, configJson: String, tailsWriterHandle: Int32) throws -> StringStringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_create_and_store_revoc_reg(walletHandle.lower(), issuerDid.lower(), revocDefType.lower(), tag.lower(), credDefId.lower(), configJson.lower(), tailsWriterHandle.lower(), $0)
+        }
+    return try StringStringString.lift(_retval)
+}
+
+public func issuerCreateCredentialOffer(walletHandle: Int32, credDefId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_create_credential_offer(walletHandle.lower(), credDefId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func issuerCreateCredential(walletHandle: Int32, credOfferJson: String, credReqJson: String, credValuesJson: String, revRegId: String, blobStorageReaderHandle: Int32) throws -> StringStringString122 {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_create_credential(walletHandle.lower(), credOfferJson.lower(), credReqJson.lower(), credValuesJson.lower(), revRegId.lower(), blobStorageReaderHandle.lower(), $0)
+        }
+    return try StringStringString122.lift(_retval)
+}
+
+public func issuerRevokeCredential(walletHandle: Int32, blobStorageReaderCfgHandle: Int32, revRegId: String, credRevocId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_revoke_credential(walletHandle.lower(), blobStorageReaderCfgHandle.lower(), revRegId.lower(), credRevocId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func issuerMergeRevocationRegistryDeltas(revRegDeltaJson: String, otherRevRegDeltaJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_issuer_merge_revocation_registry_deltas(revRegDeltaJson.lower(), otherRevRegDeltaJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverCreateMasterSecret(walletHandle: Int32, masterSecretId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_create_master_secret(walletHandle.lower(), masterSecretId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverGetCredential(walletHandle: Int32, credId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_get_credential(walletHandle.lower(), credId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverDeleteCredential(walletHandle: Int32, credId: String) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_delete_credential(walletHandle.lower(), credId.lower(), $0)
+        }
+}
+
+public func proverCreateCredentialReq(walletHandle: Int32, proverDid: String, credOfferJson: String, credDefJson: String, masterSecretId: String) throws -> StringString {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_create_credential_req(walletHandle.lower(), proverDid.lower(), credOfferJson.lower(), credDefJson.lower(), masterSecretId.lower(), $0)
+        }
+    return try StringString.lift(_retval)
+}
+
+public func proverSetCredentialAttrTagPolicy(walletHandle: Int32, credDefId: String, tagAttrsJson: String, retroactive: Bool) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_set_credential_attr_tag_policy(walletHandle.lower(), credDefId.lower(), tagAttrsJson.lower(), retroactive.lower(), $0)
+        }
+}
+
+public func proverGetCredentialAttrTagPolicy(walletHandle: Int32, credId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_get_credential_attr_tag_policy(walletHandle.lower(), credId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverStoreCredential(walletHandle: Int32, credId: String, credReqMetadataJson: String, credJson: String, credDefJson: String, revRegDefJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_store_credential(walletHandle.lower(), credId.lower(), credReqMetadataJson.lower(), credJson.lower(), credDefJson.lower(), revRegDefJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverGetCredentials(walletHandle: Int32, filterJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_get_credentials(walletHandle.lower(), filterJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverSearchCredentials(walletHandle: Int32, queryJson: String) throws -> SearchHandleAndLength {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_search_credentials(walletHandle.lower(), queryJson.lower(), $0)
+        }
+    return try SearchHandleAndLength.lift(_retval)
+}
+
+public func proverFetchCredentials(searchHandle: Int32, count: UInt64) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_fetch_credentials(searchHandle.lower(), count.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverCloseCredentialsSearch(searchHandle: Int32) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_close_credentials_search(searchHandle.lower(), $0)
+        }
+}
+
+public func proverGetCredentialsForProofReq(walletHandle: Int32, proofRequestJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_get_credentials_for_proof_req(walletHandle.lower(), proofRequestJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverSearchCredentialsForProofReq(walletHandle: Int32, proofRequestJson: String, extraQueryJson: String) throws -> Int32 {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_search_credentials_for_proof_req(walletHandle.lower(), proofRequestJson.lower(), extraQueryJson.lower(), $0)
+        }
+    return try Int32.lift(_retval)
+}
+
+public func proverFetchCredentialsForProofReq(searchHandle: Int32, itemReferent: String, count: UInt64) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_fetch_credentials_for_proof_req(searchHandle.lower(), itemReferent.lower(), count.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func proverCloseCredentialsSearchForProofReq(searchHandle: Int32) throws {
+    try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_close_credentials_search_for_proof_req(searchHandle.lower(), $0)
+        }
+}
+
+public func proverCreateProof(walletHandle: Int32, proofReqJson: String, requestedCredentialsJson: String, masterSecretId: String, schemasJson: String, credentialDefsJson: String, revStatesJson: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_prover_create_proof(walletHandle.lower(), proofReqJson.lower(), requestedCredentialsJson.lower(), masterSecretId.lower(), schemasJson.lower(), credentialDefsJson.lower(), revStatesJson.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func verifierVerifyProof(proofRequestJson: String, proofJson: String, schemasJson: String, credentialDefsJson: String, revRegDefsJson: String, revRegsJson: String) throws -> Bool {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_verifier_verify_proof(proofRequestJson.lower(), proofJson.lower(), schemasJson.lower(), credentialDefsJson.lower(), revRegDefsJson.lower(), revRegsJson.lower(), $0)
+        }
+    return try Bool.lift(_retval)
+}
+
+public func createRevocationState(blobStorageReaderHandle: Int32, revRegDefJson: String, revRegDeltaJson: String, timestamp: UInt64, credRevId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_create_revocation_state(blobStorageReaderHandle.lower(), revRegDefJson.lower(), revRegDeltaJson.lower(), timestamp.lower(), credRevId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func updateRevocationState(blobStorageReaderHandle: Int32, revStateJson: String, revRegDefJson: String, revRegDeltaJson: String, timestamp: UInt64, credRevId: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_update_revocation_state(blobStorageReaderHandle.lower(), revStateJson.lower(), revRegDefJson.lower(), revRegDeltaJson.lower(), timestamp.lower(), credRevId.lower(), $0)
+        }
+    return try String.lift(_retval)
+}
+
+public func generateNonce() throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_generate_nonce($0)
+        }
+    return try String.lift(_retval)
+}
+
+public func toUnqualified(entity: String) throws -> String {
+    let _retval = try
+
+        rustCallWithError(IndyError2.self) {
+            lib_2f6d_to_unqualified(entity.lower(), $0)
+        }
+    return try String.lift(_retval)
 }
 
 public struct IndyError {
@@ -1101,6 +1814,210 @@ private extension StringVecU8 {
 }
 
 extension StringVecU8: ViaFfiUsingByteBuffer, ViaFfi {}
+
+public struct StringStringU64 {
+    public var i0: String
+    public var i1: String
+    public var i2: UInt64
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(i0: String, i1: String, i2: UInt64) {
+        self.i0 = i0
+        self.i1 = i1
+        self.i2 = i2
+    }
+}
+
+extension StringStringU64: Equatable, Hashable {
+    public static func == (lhs: StringStringU64, rhs: StringStringU64) -> Bool {
+        if lhs.i0 != rhs.i0 {
+            return false
+        }
+        if lhs.i1 != rhs.i1 {
+            return false
+        }
+        if lhs.i2 != rhs.i2 {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(i0)
+        hasher.combine(i1)
+        hasher.combine(i2)
+    }
+}
+
+private extension StringStringU64 {
+    static func read(from buf: Reader) throws -> StringStringU64 {
+        return try StringStringU64(
+            i0: String.read(from: buf),
+            i1: String.read(from: buf),
+            i2: UInt64.read(from: buf)
+        )
+    }
+
+    func write(into buf: Writer) {
+        i0.write(into: buf)
+        i1.write(into: buf)
+        i2.write(into: buf)
+    }
+}
+
+extension StringStringU64: ViaFfiUsingByteBuffer, ViaFfi {}
+
+public struct StringStringString {
+    public var i0: String
+    public var i1: String
+    public var i2: String
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(i0: String, i1: String, i2: String) {
+        self.i0 = i0
+        self.i1 = i1
+        self.i2 = i2
+    }
+}
+
+extension StringStringString: Equatable, Hashable {
+    public static func == (lhs: StringStringString, rhs: StringStringString) -> Bool {
+        if lhs.i0 != rhs.i0 {
+            return false
+        }
+        if lhs.i1 != rhs.i1 {
+            return false
+        }
+        if lhs.i2 != rhs.i2 {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(i0)
+        hasher.combine(i1)
+        hasher.combine(i2)
+    }
+}
+
+private extension StringStringString {
+    static func read(from buf: Reader) throws -> StringStringString {
+        return try StringStringString(
+            i0: String.read(from: buf),
+            i1: String.read(from: buf),
+            i2: String.read(from: buf)
+        )
+    }
+
+    func write(into buf: Writer) {
+        i0.write(into: buf)
+        i1.write(into: buf)
+        i2.write(into: buf)
+    }
+}
+
+extension StringStringString: ViaFfiUsingByteBuffer, ViaFfi {}
+
+public struct StringStringString122 {
+    public var i0: String
+    public var i1: String?
+    public var i2: String?
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(i0: String, i1: String?, i2: String?) {
+        self.i0 = i0
+        self.i1 = i1
+        self.i2 = i2
+    }
+}
+
+extension StringStringString122: Equatable, Hashable {
+    public static func == (lhs: StringStringString122, rhs: StringStringString122) -> Bool {
+        if lhs.i0 != rhs.i0 {
+            return false
+        }
+        if lhs.i1 != rhs.i1 {
+            return false
+        }
+        if lhs.i2 != rhs.i2 {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(i0)
+        hasher.combine(i1)
+        hasher.combine(i2)
+    }
+}
+
+private extension StringStringString122 {
+    static func read(from buf: Reader) throws -> StringStringString122 {
+        return try StringStringString122(
+            i0: String.read(from: buf),
+            i1: FfiConverterOptionString.read(from: buf),
+            i2: FfiConverterOptionString.read(from: buf)
+        )
+    }
+
+    func write(into buf: Writer) {
+        i0.write(into: buf)
+        FfiConverterOptionString.write(i1, into: buf)
+        FfiConverterOptionString.write(i2, into: buf)
+    }
+}
+
+extension StringStringString122: ViaFfiUsingByteBuffer, ViaFfi {}
+
+public struct SearchHandleAndLength {
+    public var i0: Int32
+    public var i1: UInt64
+
+    // Default memberwise initializers are never public by default, so we
+    // declare one manually.
+    public init(i0: Int32, i1: UInt64) {
+        self.i0 = i0
+        self.i1 = i1
+    }
+}
+
+extension SearchHandleAndLength: Equatable, Hashable {
+    public static func == (lhs: SearchHandleAndLength, rhs: SearchHandleAndLength) -> Bool {
+        if lhs.i0 != rhs.i0 {
+            return false
+        }
+        if lhs.i1 != rhs.i1 {
+            return false
+        }
+        return true
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(i0)
+        hasher.combine(i1)
+    }
+}
+
+private extension SearchHandleAndLength {
+    static func read(from buf: Reader) throws -> SearchHandleAndLength {
+        return try SearchHandleAndLength(
+            i0: Int32.read(from: buf),
+            i1: UInt64.read(from: buf)
+        )
+    }
+
+    func write(into buf: Writer) {
+        i0.write(into: buf)
+        i1.write(into: buf)
+    }
+}
+
+extension SearchHandleAndLength: ViaFfiUsingByteBuffer, ViaFfi {}
 
 public enum ErrorCode {
     // Simple error enums only carry a message
@@ -1871,6 +2788,16 @@ extension UInt8: Primitive, ViaFfi {
     }
 }
 
+extension UInt32: Primitive, ViaFfi {
+    fileprivate static func read(from buf: Reader) throws -> Self {
+        return try lift(buf.readInt())
+    }
+
+    fileprivate func write(into buf: Writer) {
+        buf.writeInt(lower())
+    }
+}
+
 extension Int32: Primitive, ViaFfi {
     fileprivate static func read(from buf: Reader) throws -> Self {
         return try lift(buf.readInt())
@@ -1882,6 +2809,16 @@ extension Int32: Primitive, ViaFfi {
 }
 
 extension UInt64: Primitive, ViaFfi {
+    fileprivate static func read(from buf: Reader) throws -> Self {
+        return try lift(buf.readInt())
+    }
+
+    fileprivate func write(into buf: Writer) {
+        buf.writeInt(lower())
+    }
+}
+
+extension Int64: Primitive, ViaFfi {
     fileprivate static func read(from buf: Reader) throws -> Self {
         return try lift(buf.readInt())
     }
@@ -1950,11 +2887,31 @@ extension String: ViaFfi {
 
 // Helper code for ErrorDetails record is found in RecordTemplate.swift
 // Helper code for IndyError record is found in RecordTemplate.swift
+// Helper code for SearchHandleAndLength record is found in RecordTemplate.swift
 // Helper code for StringOptString record is found in RecordTemplate.swift
 // Helper code for StringString record is found in RecordTemplate.swift
+// Helper code for StringStringString record is found in RecordTemplate.swift
+// Helper code for StringStringString122 record is found in RecordTemplate.swift
+// Helper code for StringStringU64 record is found in RecordTemplate.swift
 // Helper code for StringVecU8 record is found in RecordTemplate.swift
 // Helper code for ErrorCode error is found in ErrorTemplate.swift
 // Helper code for IndyError2 error is found in ErrorTemplate.swift
+
+private enum FfiConverterOptionUInt64: FfiConverterUsingByteBuffer {
+    typealias SwiftType = UInt64?
+
+    static func write(_ value: SwiftType, into buf: Writer) {
+        FfiConverterOptional.write(value, into: buf) { item, buf in
+            item.write(into: buf)
+        }
+    }
+
+    static func read(from buf: Reader) throws -> SwiftType {
+        try FfiConverterOptional.read(from: buf) { buf in
+            try UInt64.read(from: buf)
+        }
+    }
+}
 
 private enum FfiConverterOptionString: FfiConverterUsingByteBuffer {
     typealias SwiftType = String?
@@ -1984,6 +2941,22 @@ private enum FfiConverterSequenceUInt8: FfiConverterUsingByteBuffer {
     static func read(from buf: Reader) throws -> SwiftType {
         try FfiConverterSequence.read(from: buf) { buf in
             try UInt8.read(from: buf)
+        }
+    }
+}
+
+private enum FfiConverterSequenceUInt64: FfiConverterUsingByteBuffer {
+    typealias SwiftType = [UInt64]
+
+    static func write(_ value: SwiftType, into buf: Writer) {
+        FfiConverterSequence.write(value, into: buf) { item, buf in
+            item.write(into: buf)
+        }
+    }
+
+    static func read(from buf: Reader) throws -> SwiftType {
+        try FfiConverterSequence.read(from: buf) { buf in
+            try UInt64.read(from: buf)
         }
     }
 }

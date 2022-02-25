@@ -15,7 +15,7 @@ uniffi::assert_compatible_version!("0.16.0"); // Please check that you depend on
 /// or by passing ownership of the buffer back into Rust code.
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn ffi_lib_16d0_rustbuffer_alloc(
+pub extern "C" fn ffi_lib_2f6d_rustbuffer_alloc(
     size: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
@@ -34,7 +34,7 @@ pub extern "C" fn ffi_lib_16d0_rustbuffer_alloc(
 /// make sure the `ForeignBytes` struct contains a valid pointer and length.
 #[doc(hidden)]
 #[no_mangle]
-pub unsafe extern "C" fn ffi_lib_16d0_rustbuffer_from_bytes(
+pub unsafe extern "C" fn ffi_lib_2f6d_rustbuffer_from_bytes(
     bytes: uniffi::ForeignBytes,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
@@ -52,7 +52,7 @@ pub unsafe extern "C" fn ffi_lib_16d0_rustbuffer_from_bytes(
 /// corrupting the allocator state.
 #[doc(hidden)]
 #[no_mangle]
-pub unsafe extern "C" fn ffi_lib_16d0_rustbuffer_free(
+pub unsafe extern "C" fn ffi_lib_2f6d_rustbuffer_free(
     buf: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
@@ -76,7 +76,7 @@ pub unsafe extern "C" fn ffi_lib_16d0_rustbuffer_free(
 /// corrupting the allocator state.
 #[doc(hidden)]
 #[no_mangle]
-pub unsafe extern "C" fn ffi_lib_16d0_rustbuffer_reserve(
+pub unsafe extern "C" fn ffi_lib_2f6d_rustbuffer_reserve(
     buf: uniffi::RustBuffer,
     additional: i32,
     call_status: &mut uniffi::RustCallStatus,
@@ -548,17 +548,111 @@ impl uniffi::RustBufferFfiConverter for FfiConverterTypeStringVecU8 {
     }
 }
 
+#[doc(hidden)]
+pub struct FfiConverterTypeStringStringU64;
+
+#[doc(hidden)]
+impl uniffi::RustBufferFfiConverter for FfiConverterTypeStringStringU64 {
+    type RustType = StringStringU64;
+
+    fn write(obj: StringStringU64, buf: &mut std::vec::Vec<u8>) {
+        // If the provided struct doesn't match the fields declared in the UDL, then
+        // the generated code here will fail to compile with somewhat helpful error.
+        <String as uniffi::FfiConverter>::write(obj.i0, buf);
+        <String as uniffi::FfiConverter>::write(obj.i1, buf);
+        <u64 as uniffi::FfiConverter>::write(obj.i2, buf);
+    }
+
+    fn try_read(buf: &mut &[u8]) -> uniffi::deps::anyhow::Result<StringStringU64> {
+        Ok(StringStringU64 {
+            i0: <String as uniffi::FfiConverter>::try_read(buf)?,
+            i1: <String as uniffi::FfiConverter>::try_read(buf)?,
+            i2: <u64 as uniffi::FfiConverter>::try_read(buf)?,
+        })
+    }
+}
+
+#[doc(hidden)]
+pub struct FfiConverterTypeStringStringString;
+
+#[doc(hidden)]
+impl uniffi::RustBufferFfiConverter for FfiConverterTypeStringStringString {
+    type RustType = StringStringString;
+
+    fn write(obj: StringStringString, buf: &mut std::vec::Vec<u8>) {
+        // If the provided struct doesn't match the fields declared in the UDL, then
+        // the generated code here will fail to compile with somewhat helpful error.
+        <String as uniffi::FfiConverter>::write(obj.i0, buf);
+        <String as uniffi::FfiConverter>::write(obj.i1, buf);
+        <String as uniffi::FfiConverter>::write(obj.i2, buf);
+    }
+
+    fn try_read(buf: &mut &[u8]) -> uniffi::deps::anyhow::Result<StringStringString> {
+        Ok(StringStringString {
+            i0: <String as uniffi::FfiConverter>::try_read(buf)?,
+            i1: <String as uniffi::FfiConverter>::try_read(buf)?,
+            i2: <String as uniffi::FfiConverter>::try_read(buf)?,
+        })
+    }
+}
+
+#[doc(hidden)]
+pub struct FfiConverterTypeStringStringString122;
+
+#[doc(hidden)]
+impl uniffi::RustBufferFfiConverter for FfiConverterTypeStringStringString122 {
+    type RustType = StringStringString122;
+
+    fn write(obj: StringStringString122, buf: &mut std::vec::Vec<u8>) {
+        // If the provided struct doesn't match the fields declared in the UDL, then
+        // the generated code here will fail to compile with somewhat helpful error.
+        <String as uniffi::FfiConverter>::write(obj.i0, buf);
+        <std::option::Option<String> as uniffi::FfiConverter>::write(obj.i1, buf);
+        <std::option::Option<String> as uniffi::FfiConverter>::write(obj.i2, buf);
+    }
+
+    fn try_read(buf: &mut &[u8]) -> uniffi::deps::anyhow::Result<StringStringString122> {
+        Ok(StringStringString122 {
+            i0: <String as uniffi::FfiConverter>::try_read(buf)?,
+            i1: <std::option::Option<String> as uniffi::FfiConverter>::try_read(buf)?,
+            i2: <std::option::Option<String> as uniffi::FfiConverter>::try_read(buf)?,
+        })
+    }
+}
+
+#[doc(hidden)]
+pub struct FfiConverterTypeSearchHandleAndLength;
+
+#[doc(hidden)]
+impl uniffi::RustBufferFfiConverter for FfiConverterTypeSearchHandleAndLength {
+    type RustType = SearchHandleAndLength;
+
+    fn write(obj: SearchHandleAndLength, buf: &mut std::vec::Vec<u8>) {
+        // If the provided struct doesn't match the fields declared in the UDL, then
+        // the generated code here will fail to compile with somewhat helpful error.
+        <i32 as uniffi::FfiConverter>::write(obj.i0, buf);
+        <u64 as uniffi::FfiConverter>::write(obj.i1, buf);
+    }
+
+    fn try_read(buf: &mut &[u8]) -> uniffi::deps::anyhow::Result<SearchHandleAndLength> {
+        Ok(SearchHandleAndLength {
+            i0: <i32 as uniffi::FfiConverter>::try_read(buf)?,
+            i1: <u64 as uniffi::FfiConverter>::try_read(buf)?,
+        })
+    }
+}
+
 // Top level functions, corresponding to UDL `namespace` functions.
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_set_runtime_config(
+pub extern "C" fn lib_2f6d_set_runtime_config(
     config: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_set_runtime_config");
+    uniffi::deps::log::debug!("lib_2f6d_set_runtime_config");
 
     uniffi::call_with_output(call_status, || {
         <FfiConverterTypeErrorCode as uniffi::FfiConverter>::lower(set_runtime_config(
@@ -573,14 +667,14 @@ pub extern "C" fn lib_16d0_set_runtime_config(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_open_reader(
+pub extern "C" fn lib_2f6d_open_reader(
     xtype: uniffi::RustBuffer,
     config_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> i32 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_open_reader");
+    uniffi::deps::log::debug!("lib_2f6d_open_reader");
 
     uniffi::call_with_result(call_status, || {
         let _retval = open_reader(
@@ -611,14 +705,14 @@ pub extern "C" fn lib_16d0_open_reader(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_open_writer(
+pub extern "C" fn lib_2f6d_open_writer(
     xtype: uniffi::RustBuffer,
     config_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> i32 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_open_writer");
+    uniffi::deps::log::debug!("lib_2f6d_open_writer");
 
     uniffi::call_with_result(call_status, || {
         let _retval = open_writer(
@@ -649,13 +743,13 @@ pub extern "C" fn lib_16d0_open_writer(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_register_wallet_storage(
+pub extern "C" fn lib_2f6d_register_wallet_storage(
     xtype: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_register_wallet_storage");
+    uniffi::deps::log::debug!("lib_2f6d_register_wallet_storage");
 
     uniffi::call_with_result(call_status, || {
         let _retval =
@@ -676,14 +770,14 @@ pub extern "C" fn lib_16d0_register_wallet_storage(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_create_wallet(
+pub extern "C" fn lib_2f6d_create_wallet(
     config: uniffi::RustBuffer,
     credentials: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_create_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_create_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = create_wallet(
@@ -714,14 +808,14 @@ pub extern "C" fn lib_16d0_create_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_open_wallet(
+pub extern "C" fn lib_2f6d_open_wallet(
     config: uniffi::RustBuffer,
     credentials: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> i32 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_open_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_open_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = open_wallet(
@@ -752,14 +846,14 @@ pub extern "C" fn lib_16d0_open_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_export_wallet(
+pub extern "C" fn lib_2f6d_export_wallet(
     wallet_handle: i32,
     export_config: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_export_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_export_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = export_wallet(
@@ -790,7 +884,7 @@ pub extern "C" fn lib_16d0_export_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_import_wallet(
+pub extern "C" fn lib_2f6d_import_wallet(
     config: uniffi::RustBuffer,
     credentials: uniffi::RustBuffer,
     import_config: uniffi::RustBuffer,
@@ -798,7 +892,7 @@ pub extern "C" fn lib_16d0_import_wallet(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_import_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_import_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = import_wallet(
@@ -838,14 +932,14 @@ pub extern "C" fn lib_16d0_import_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_delete_wallet(
+pub extern "C" fn lib_2f6d_delete_wallet(
     config: uniffi::RustBuffer,
     credentials: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_delete_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_delete_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = delete_wallet(
@@ -876,13 +970,13 @@ pub extern "C" fn lib_16d0_delete_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_close_wallet(
+pub extern "C" fn lib_2f6d_close_wallet(
     wallet_handle: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_close_wallet");
+    uniffi::deps::log::debug!("lib_2f6d_close_wallet");
 
     uniffi::call_with_result(call_status, || {
         let _retval = close_wallet(
@@ -904,7 +998,7 @@ pub extern "C" fn lib_16d0_close_wallet(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_add_wallet_record(
+pub extern "C" fn lib_2f6d_add_wallet_record(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -914,7 +1008,7 @@ pub extern "C" fn lib_16d0_add_wallet_record(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_add_wallet_record");
+    uniffi::deps::log::debug!("lib_2f6d_add_wallet_record");
 
     uniffi::call_with_result(call_status, || {
         let _retval = add_wallet_record(
@@ -972,7 +1066,7 @@ pub extern "C" fn lib_16d0_add_wallet_record(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_update_wallet_record_value(
+pub extern "C" fn lib_2f6d_update_wallet_record_value(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -981,7 +1075,7 @@ pub extern "C" fn lib_16d0_update_wallet_record_value(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_update_wallet_record_value");
+    uniffi::deps::log::debug!("lib_2f6d_update_wallet_record_value");
 
     uniffi::call_with_result(call_status, || {
         let _retval = update_wallet_record_value(
@@ -1030,7 +1124,7 @@ pub extern "C" fn lib_16d0_update_wallet_record_value(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_update_wallet_record_tags(
+pub extern "C" fn lib_2f6d_update_wallet_record_tags(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -1039,7 +1133,7 @@ pub extern "C" fn lib_16d0_update_wallet_record_tags(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_update_wallet_record_tags");
+    uniffi::deps::log::debug!("lib_2f6d_update_wallet_record_tags");
 
     uniffi::call_with_result(call_status, || {
         let _retval = update_wallet_record_tags(
@@ -1088,7 +1182,7 @@ pub extern "C" fn lib_16d0_update_wallet_record_tags(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_add_wallet_record_tags(
+pub extern "C" fn lib_2f6d_add_wallet_record_tags(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -1097,7 +1191,7 @@ pub extern "C" fn lib_16d0_add_wallet_record_tags(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_add_wallet_record_tags");
+    uniffi::deps::log::debug!("lib_2f6d_add_wallet_record_tags");
 
     uniffi::call_with_result(call_status, || {
         let _retval = add_wallet_record_tags(
@@ -1146,7 +1240,7 @@ pub extern "C" fn lib_16d0_add_wallet_record_tags(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_delete_wallet_record_tags(
+pub extern "C" fn lib_2f6d_delete_wallet_record_tags(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -1155,7 +1249,7 @@ pub extern "C" fn lib_16d0_delete_wallet_record_tags(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_delete_wallet_record_tags");
+    uniffi::deps::log::debug!("lib_2f6d_delete_wallet_record_tags");
 
     uniffi::call_with_result(call_status, || {
         let _retval = delete_wallet_record_tags(
@@ -1204,7 +1298,7 @@ pub extern "C" fn lib_16d0_delete_wallet_record_tags(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_delete_wallet_record(
+pub extern "C" fn lib_2f6d_delete_wallet_record(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -1212,7 +1306,7 @@ pub extern "C" fn lib_16d0_delete_wallet_record(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_delete_wallet_record");
+    uniffi::deps::log::debug!("lib_2f6d_delete_wallet_record");
 
     uniffi::call_with_result(call_status, || {
         let _retval = delete_wallet_record(
@@ -1252,7 +1346,7 @@ pub extern "C" fn lib_16d0_delete_wallet_record(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_wallet_record(
+pub extern "C" fn lib_2f6d_get_wallet_record(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     id: uniffi::RustBuffer,
@@ -1261,7 +1355,7 @@ pub extern "C" fn lib_16d0_get_wallet_record(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_wallet_record");
+    uniffi::deps::log::debug!("lib_2f6d_get_wallet_record");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_wallet_record(
@@ -1310,7 +1404,7 @@ pub extern "C" fn lib_16d0_get_wallet_record(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_open_wallet_search(
+pub extern "C" fn lib_2f6d_open_wallet_search(
     wallet_handle: i32,
     xtype: uniffi::RustBuffer,
     query_json: uniffi::RustBuffer,
@@ -1319,7 +1413,7 @@ pub extern "C" fn lib_16d0_open_wallet_search(
 ) -> i32 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_open_wallet_search");
+    uniffi::deps::log::debug!("lib_2f6d_open_wallet_search");
 
     uniffi::call_with_result(call_status, || {
         let _retval = open_wallet_search(
@@ -1368,7 +1462,7 @@ pub extern "C" fn lib_16d0_open_wallet_search(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_fetch_wallet_search_next_records(
+pub extern "C" fn lib_2f6d_fetch_wallet_search_next_records(
     wallet_handle: i32,
     wallet_search_handle: i32,
     count: u64,
@@ -1376,7 +1470,7 @@ pub extern "C" fn lib_16d0_fetch_wallet_search_next_records(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_fetch_wallet_search_next_records");
+    uniffi::deps::log::debug!("lib_2f6d_fetch_wallet_search_next_records");
 
     uniffi::call_with_result(call_status, || {
         let _retval = fetch_wallet_search_next_records(
@@ -1416,13 +1510,13 @@ pub extern "C" fn lib_16d0_fetch_wallet_search_next_records(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_close_wallet_search(
+pub extern "C" fn lib_2f6d_close_wallet_search(
     wallet_search_handle: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_close_wallet_search");
+    uniffi::deps::log::debug!("lib_2f6d_close_wallet_search");
 
     uniffi::call_with_result(call_status, || {
         let _retval = close_wallet_search(
@@ -1444,13 +1538,13 @@ pub extern "C" fn lib_16d0_close_wallet_search(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_generate_wallet_key(
+pub extern "C" fn lib_2f6d_generate_wallet_key(
     config: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_generate_wallet_key");
+    uniffi::deps::log::debug!("lib_2f6d_generate_wallet_key");
 
     uniffi::call_with_result(call_status, || {
         let _retval =
@@ -1471,14 +1565,14 @@ pub extern "C" fn lib_16d0_generate_wallet_key(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_create_pool_ledger_config(
+pub extern "C" fn lib_2f6d_create_pool_ledger_config(
     pool_name: uniffi::RustBuffer,
     pool_config: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_create_pool_ledger_config");
+    uniffi::deps::log::debug!("lib_2f6d_create_pool_ledger_config");
 
     uniffi::call_with_result(call_status, || {
         let _retval = create_pool_ledger_config(
@@ -1509,14 +1603,14 @@ pub extern "C" fn lib_16d0_create_pool_ledger_config(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_open_pool_ledger(
+pub extern "C" fn lib_2f6d_open_pool_ledger(
     pool_name: uniffi::RustBuffer,
     config: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> i32 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_open_pool_ledger");
+    uniffi::deps::log::debug!("lib_2f6d_open_pool_ledger");
 
     uniffi::call_with_result(call_status, || {
         let _retval = open_pool_ledger(
@@ -1547,13 +1641,13 @@ pub extern "C" fn lib_16d0_open_pool_ledger(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_refresh_pool_ledger(
+pub extern "C" fn lib_2f6d_refresh_pool_ledger(
     pool_handle: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_refresh_pool_ledger");
+    uniffi::deps::log::debug!("lib_2f6d_refresh_pool_ledger");
 
     uniffi::call_with_result(call_status, || {
         let _retval =
@@ -1574,12 +1668,12 @@ pub extern "C" fn lib_16d0_refresh_pool_ledger(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_list_pools(
+pub extern "C" fn lib_2f6d_list_pools(
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_list_pools");
+    uniffi::deps::log::debug!("lib_2f6d_list_pools");
 
     uniffi::call_with_result(call_status, || {
         let _retval = list_pools()
@@ -1591,13 +1685,13 @@ pub extern "C" fn lib_16d0_list_pools(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_close_pool_ledger(
+pub extern "C" fn lib_2f6d_close_pool_ledger(
     pool_handle: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_close_pool_ledger");
+    uniffi::deps::log::debug!("lib_2f6d_close_pool_ledger");
 
     uniffi::call_with_result(call_status, || {
         let _retval =
@@ -1618,13 +1712,13 @@ pub extern "C" fn lib_16d0_close_pool_ledger(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_delete_pool_ledger(
+pub extern "C" fn lib_2f6d_delete_pool_ledger(
     pool_name: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_delete_pool_ledger");
+    uniffi::deps::log::debug!("lib_2f6d_delete_pool_ledger");
 
     uniffi::call_with_result(call_status, || {
         let _retval = delete_pool_ledger(
@@ -1646,13 +1740,13 @@ pub extern "C" fn lib_16d0_delete_pool_ledger(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_set_protocol_version(
+pub extern "C" fn lib_2f6d_set_protocol_version(
     protocol_version: u64,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_set_protocol_version");
+    uniffi::deps::log::debug!("lib_2f6d_set_protocol_version");
 
     uniffi::call_with_result(call_status, || {
         let _retval = set_protocol_version(
@@ -1674,14 +1768,14 @@ pub extern "C" fn lib_16d0_set_protocol_version(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_create_and_store_my_did(
+pub extern "C" fn lib_2f6d_create_and_store_my_did(
     wallet_handle: i32,
     did_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_create_and_store_my_did");
+    uniffi::deps::log::debug!("lib_2f6d_create_and_store_my_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = create_and_store_my_did(
@@ -1712,7 +1806,7 @@ pub extern "C" fn lib_16d0_create_and_store_my_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_replace_keys_start(
+pub extern "C" fn lib_2f6d_replace_keys_start(
     wallet_handle: i32,
     tgt_did: uniffi::RustBuffer,
     identity_json: uniffi::RustBuffer,
@@ -1720,7 +1814,7 @@ pub extern "C" fn lib_16d0_replace_keys_start(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_replace_keys_start");
+    uniffi::deps::log::debug!("lib_2f6d_replace_keys_start");
 
     uniffi::call_with_result(call_status, || {
         let _retval = replace_keys_start(
@@ -1760,14 +1854,14 @@ pub extern "C" fn lib_16d0_replace_keys_start(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_replace_keys_apply(
+pub extern "C" fn lib_2f6d_replace_keys_apply(
     wallet_handle: i32,
     tgt_did: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_replace_keys_apply");
+    uniffi::deps::log::debug!("lib_2f6d_replace_keys_apply");
 
     uniffi::call_with_result(call_status, || {
         let _retval = replace_keys_apply(
@@ -1798,14 +1892,14 @@ pub extern "C" fn lib_16d0_replace_keys_apply(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_store_their_did(
+pub extern "C" fn lib_2f6d_store_their_did(
     wallet_handle: i32,
     identity_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_store_their_did");
+    uniffi::deps::log::debug!("lib_2f6d_store_their_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = store_their_did(
@@ -1836,7 +1930,7 @@ pub extern "C" fn lib_16d0_store_their_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_key_for_did(
+pub extern "C" fn lib_2f6d_key_for_did(
     pool_handle: i32,
     wallet_handle: i32,
     did: uniffi::RustBuffer,
@@ -1844,7 +1938,7 @@ pub extern "C" fn lib_16d0_key_for_did(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_key_for_did");
+    uniffi::deps::log::debug!("lib_2f6d_key_for_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = key_for_did(
@@ -1884,14 +1978,14 @@ pub extern "C" fn lib_16d0_key_for_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_key_for_local_did(
+pub extern "C" fn lib_2f6d_key_for_local_did(
     wallet_handle: i32,
     did: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_key_for_local_did");
+    uniffi::deps::log::debug!("lib_2f6d_key_for_local_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = key_for_local_did(
@@ -1922,7 +2016,7 @@ pub extern "C" fn lib_16d0_key_for_local_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_set_endpoint_for_did(
+pub extern "C" fn lib_2f6d_set_endpoint_for_did(
     wallet_handle: i32,
     did: uniffi::RustBuffer,
     address: uniffi::RustBuffer,
@@ -1931,7 +2025,7 @@ pub extern "C" fn lib_16d0_set_endpoint_for_did(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_set_endpoint_for_did");
+    uniffi::deps::log::debug!("lib_2f6d_set_endpoint_for_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = set_endpoint_for_did(
@@ -1980,7 +2074,7 @@ pub extern "C" fn lib_16d0_set_endpoint_for_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_endpoint_for_did(
+pub extern "C" fn lib_2f6d_get_endpoint_for_did(
     wallet_handle: i32,
     pool_handle: i32,
     did: uniffi::RustBuffer,
@@ -1988,7 +2082,7 @@ pub extern "C" fn lib_16d0_get_endpoint_for_did(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_endpoint_for_did");
+    uniffi::deps::log::debug!("lib_2f6d_get_endpoint_for_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_endpoint_for_did(
@@ -2028,7 +2122,7 @@ pub extern "C" fn lib_16d0_get_endpoint_for_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_set_did_metadata(
+pub extern "C" fn lib_2f6d_set_did_metadata(
     wallet_handle: i32,
     tgt_did: uniffi::RustBuffer,
     metadata: uniffi::RustBuffer,
@@ -2036,7 +2130,7 @@ pub extern "C" fn lib_16d0_set_did_metadata(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_set_did_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_set_did_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = set_did_metadata(
@@ -2076,14 +2170,14 @@ pub extern "C" fn lib_16d0_set_did_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_did_metadata(
+pub extern "C" fn lib_2f6d_get_did_metadata(
     wallet_handle: i32,
     tgt_did: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_did_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_get_did_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_did_metadata(
@@ -2114,14 +2208,14 @@ pub extern "C" fn lib_16d0_get_did_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_my_did_with_metadata(
+pub extern "C" fn lib_2f6d_get_my_did_with_metadata(
     wallet_handle: i32,
     my_did: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_my_did_with_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_get_my_did_with_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_my_did_with_metadata(
@@ -2152,13 +2246,13 @@ pub extern "C" fn lib_16d0_get_my_did_with_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_list_my_dids_with_metadata(
+pub extern "C" fn lib_2f6d_list_my_dids_with_metadata(
     wallet_handle: i32,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_list_my_dids_with_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_list_my_dids_with_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = list_my_dids_with_metadata(
@@ -2180,14 +2274,14 @@ pub extern "C" fn lib_16d0_list_my_dids_with_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_abbreviate_verkey(
+pub extern "C" fn lib_2f6d_abbreviate_verkey(
     tgt_did: uniffi::RustBuffer,
     verkey: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_abbreviate_verkey");
+    uniffi::deps::log::debug!("lib_2f6d_abbreviate_verkey");
 
     uniffi::call_with_result(call_status, || {
         let _retval = abbreviate_verkey(
@@ -2218,7 +2312,7 @@ pub extern "C" fn lib_16d0_abbreviate_verkey(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_qualify_did(
+pub extern "C" fn lib_2f6d_qualify_did(
     wallet_handle: i32,
     did: uniffi::RustBuffer,
     method: uniffi::RustBuffer,
@@ -2226,7 +2320,7 @@ pub extern "C" fn lib_16d0_qualify_did(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_qualify_did");
+    uniffi::deps::log::debug!("lib_2f6d_qualify_did");
 
     uniffi::call_with_result(call_status, || {
         let _retval = qualify_did(
@@ -2266,7 +2360,7 @@ pub extern "C" fn lib_16d0_qualify_did(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_schema(
+pub extern "C" fn lib_2f6d_get_schema(
     pool_handle: i32,
     wallet_handle: i32,
     submitter_did: uniffi::RustBuffer,
@@ -2276,7 +2370,7 @@ pub extern "C" fn lib_16d0_get_schema(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_schema");
+    uniffi::deps::log::debug!("lib_2f6d_get_schema");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_schema(
@@ -2334,7 +2428,7 @@ pub extern "C" fn lib_16d0_get_schema(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_cred_def(
+pub extern "C" fn lib_2f6d_get_cred_def(
     pool_handle: i32,
     wallet_handle: i32,
     submitter_did: uniffi::RustBuffer,
@@ -2344,7 +2438,7 @@ pub extern "C" fn lib_16d0_get_cred_def(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_cred_def");
+    uniffi::deps::log::debug!("lib_2f6d_get_cred_def");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_cred_def(
@@ -2402,14 +2496,14 @@ pub extern "C" fn lib_16d0_get_cred_def(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_purge_schema_cache(
+pub extern "C" fn lib_2f6d_purge_schema_cache(
     wallet_handle: i32,
     options_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_purge_schema_cache");
+    uniffi::deps::log::debug!("lib_2f6d_purge_schema_cache");
 
     uniffi::call_with_result(call_status, || {
         let _retval = purge_schema_cache(
@@ -2440,14 +2534,14 @@ pub extern "C" fn lib_16d0_purge_schema_cache(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_purge_cred_def_cache(
+pub extern "C" fn lib_2f6d_purge_cred_def_cache(
     wallet_handle: i32,
     options_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_purge_cred_def_cache");
+    uniffi::deps::log::debug!("lib_2f6d_purge_cred_def_cache");
 
     uniffi::call_with_result(call_status, || {
         let _retval = purge_cred_def_cache(
@@ -2478,14 +2572,14 @@ pub extern "C" fn lib_16d0_purge_cred_def_cache(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_create_key(
+pub extern "C" fn lib_2f6d_create_key(
     wallet_handle: i32,
     my_key_json: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_create_key");
+    uniffi::deps::log::debug!("lib_2f6d_create_key");
 
     uniffi::call_with_result(call_status, || {
         let _retval = create_key(
@@ -2516,7 +2610,7 @@ pub extern "C" fn lib_16d0_create_key(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_set_key_metadata(
+pub extern "C" fn lib_2f6d_set_key_metadata(
     wallet_handle: i32,
     verkey: uniffi::RustBuffer,
     metadata: uniffi::RustBuffer,
@@ -2524,7 +2618,7 @@ pub extern "C" fn lib_16d0_set_key_metadata(
 ) {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_set_key_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_set_key_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = set_key_metadata(
@@ -2564,14 +2658,14 @@ pub extern "C" fn lib_16d0_set_key_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_get_key_metadata(
+pub extern "C" fn lib_2f6d_get_key_metadata(
     wallet_handle: i32,
     verkey: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_get_key_metadata");
+    uniffi::deps::log::debug!("lib_2f6d_get_key_metadata");
 
     uniffi::call_with_result(call_status, || {
         let _retval = get_key_metadata(
@@ -2602,7 +2696,7 @@ pub extern "C" fn lib_16d0_get_key_metadata(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_sign(
+pub extern "C" fn lib_2f6d_sign(
     wallet_handle: i32,
     signer_vk: uniffi::RustBuffer,
     message: uniffi::RustBuffer,
@@ -2610,7 +2704,7 @@ pub extern "C" fn lib_16d0_sign(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_sign");
+    uniffi::deps::log::debug!("lib_2f6d_sign");
 
     uniffi::call_with_result(call_status, || {
         let _retval = sign(
@@ -2650,7 +2744,7 @@ pub extern "C" fn lib_16d0_sign(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_verify(
+pub extern "C" fn lib_2f6d_verify(
     signer_vk: uniffi::RustBuffer,
     message: uniffi::RustBuffer,
     signature: uniffi::RustBuffer,
@@ -2658,7 +2752,7 @@ pub extern "C" fn lib_16d0_verify(
 ) -> i8 {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_verify");
+    uniffi::deps::log::debug!("lib_2f6d_verify");
 
     uniffi::call_with_result(call_status, || {
         let _retval = verify(
@@ -2698,7 +2792,7 @@ pub extern "C" fn lib_16d0_verify(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_auth_crypt(
+pub extern "C" fn lib_2f6d_auth_crypt(
     wallet_handle: i32,
     sender_vk: uniffi::RustBuffer,
     recipient_vk: uniffi::RustBuffer,
@@ -2707,7 +2801,7 @@ pub extern "C" fn lib_16d0_auth_crypt(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_auth_crypt");
+    uniffi::deps::log::debug!("lib_2f6d_auth_crypt");
 
     uniffi::call_with_result(call_status, || {
         let _retval = auth_crypt(
@@ -2756,7 +2850,7 @@ pub extern "C" fn lib_16d0_auth_crypt(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_auth_decrypt(
+pub extern "C" fn lib_2f6d_auth_decrypt(
     wallet_handle: i32,
     recipient_vk: uniffi::RustBuffer,
     encrypted_message: uniffi::RustBuffer,
@@ -2764,7 +2858,7 @@ pub extern "C" fn lib_16d0_auth_decrypt(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_auth_decrypt");
+    uniffi::deps::log::debug!("lib_2f6d_auth_decrypt");
 
     uniffi::call_with_result(call_status, || {
         let _retval = auth_decrypt(
@@ -2804,14 +2898,14 @@ pub extern "C" fn lib_16d0_auth_decrypt(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_anon_crypt(
+pub extern "C" fn lib_2f6d_anon_crypt(
     recipient_vk: uniffi::RustBuffer,
     message: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_anon_crypt");
+    uniffi::deps::log::debug!("lib_2f6d_anon_crypt");
 
     uniffi::call_with_result(call_status, || {
         let _retval = anon_crypt(
@@ -2842,7 +2936,7 @@ pub extern "C" fn lib_16d0_anon_crypt(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_anon_decrypt(
+pub extern "C" fn lib_2f6d_anon_decrypt(
     wallet_handle: i32,
     recipient_vk: uniffi::RustBuffer,
     encrypted_message: uniffi::RustBuffer,
@@ -2850,7 +2944,7 @@ pub extern "C" fn lib_16d0_anon_decrypt(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_anon_decrypt");
+    uniffi::deps::log::debug!("lib_2f6d_anon_decrypt");
 
     uniffi::call_with_result(call_status, || {
         let _retval = anon_decrypt(
@@ -2890,7 +2984,7 @@ pub extern "C" fn lib_16d0_anon_decrypt(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_pack_message(
+pub extern "C" fn lib_2f6d_pack_message(
     wallet_handle: i32,
     message: uniffi::RustBuffer,
     receiver_keys: uniffi::RustBuffer,
@@ -2899,7 +2993,7 @@ pub extern "C" fn lib_16d0_pack_message(
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_pack_message");
+    uniffi::deps::log::debug!("lib_2f6d_pack_message");
 
     uniffi::call_with_result(call_status, || {
         let _retval = pack_message(
@@ -2948,14 +3042,14 @@ pub extern "C" fn lib_16d0_pack_message(
 
 #[doc(hidden)]
 #[no_mangle]
-pub extern "C" fn lib_16d0_unpack_message(
+pub extern "C" fn lib_2f6d_unpack_message(
     wallet_handle: i32,
     jwe: uniffi::RustBuffer,
     call_status: &mut uniffi::RustCallStatus,
 ) -> uniffi::RustBuffer {
     // If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    uniffi::deps::log::debug!("lib_16d0_unpack_message");
+    uniffi::deps::log::debug!("lib_2f6d_unpack_message");
 
     uniffi::call_with_result(call_status, || {
         let _retval = unpack_message(
@@ -2981,6 +3075,3861 @@ pub extern "C" fn lib_16d0_unpack_message(
         .map_err(Into::into)
         .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
         Ok(<std::vec::Vec<u8> as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_collect_metrics(
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_collect_metrics");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = collect_metrics()
+            .map_err(Into::into)
+            .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_is_pairwise_exists(
+    wallet_handle: i32,
+    their_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> i8 {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_is_pairwise_exists");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = is_pairwise_exists(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(their_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "their_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<bool as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_create_pairwise(
+    wallet_handle: i32,
+    their_did: uniffi::RustBuffer,
+    my_did: uniffi::RustBuffer,
+    metadata: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_create_pairwise");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = create_pairwise(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(their_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "their_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(my_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "my_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(metadata) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "metadata"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_list_pairwise(
+    wallet_handle: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_list_pairwise");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = list_pairwise(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_get_pairwise(
+    wallet_handle: i32,
+    their_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_get_pairwise");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = get_pairwise(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(their_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "their_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_set_pairwise_metadata(
+    wallet_handle: i32,
+    their_did: uniffi::RustBuffer,
+    metadata: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_set_pairwise_metadata");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = set_pairwise_metadata(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(their_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "their_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(metadata) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "metadata"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_sign_and_submit_request(
+    pool_handle: i32,
+    wallet_handle: i32,
+    submitter_did: uniffi::RustBuffer,
+    request_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_sign_and_submit_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = sign_and_submit_request(
+            match <i32 as uniffi::FfiConverter>::try_lift(pool_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "pool_handle"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_submit_request(
+    pool_handle: i32,
+    request_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_submit_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = submit_request(
+            match <i32 as uniffi::FfiConverter>::try_lift(pool_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "pool_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_submit_action(
+    pool_handle: i32,
+    request_json: uniffi::RustBuffer,
+    nodes: uniffi::RustBuffer,
+    wait_timeout: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_submit_action");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = submit_action(
+            match <i32 as uniffi::FfiConverter>::try_lift(pool_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "pool_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(nodes) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "nodes"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(wait_timeout) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wait_timeout"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_sign_request(
+    wallet_handle: i32,
+    submitter_did: uniffi::RustBuffer,
+    request_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_sign_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = sign_request(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_multi_sign_request(
+    wallet_handle: i32,
+    submitter_did: uniffi::RustBuffer,
+    request_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_multi_sign_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = multi_sign_request(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_ddo_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_ddo_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_ddo_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_nym_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    verkey: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    role: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_nym_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_nym_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(verkey) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "verkey"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(role) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "role"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_nym_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_nym_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_nym_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_nym_response(
+    get_nym_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_nym_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_nym_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_nym_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_nym_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_txn_request(
+    submitter_did: uniffi::RustBuffer,
+    ledger_type: uniffi::RustBuffer,
+    seq_no: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_txn_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_txn_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(ledger_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "ledger_type"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(seq_no) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "seq_no"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_attrib_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    hash: uniffi::RustBuffer,
+    raw: uniffi::RustBuffer,
+    enc: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_attrib_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_attrib_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(hash) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "hash"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(raw) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "raw"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(enc) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "enc"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_attrib_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    raw: uniffi::RustBuffer,
+    hash: uniffi::RustBuffer,
+    enc: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_attrib_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_attrib_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(raw) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "raw"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(hash) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "hash"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(enc) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "enc"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_schema_request(
+    ubmitter_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_schema_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_schema_request(
+            match <String as uniffi::FfiConverter>::try_lift(ubmitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "ubmitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_schema_request(
+    submitter_did: uniffi::RustBuffer,
+    id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_schema_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_schema_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_schema_response(
+    get_schema_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_schema_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_schema_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_schema_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_schema_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_cred_def_request(
+    submitter_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_cred_def_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_cred_def_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_cred_def_request(
+    submitter_did: uniffi::RustBuffer,
+    id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_cred_def_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_cred_def_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_cred_def_response(
+    get_cred_def_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_cred_def_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_cred_def_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_cred_def_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_cred_def_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_node_request(
+    submitter_did: uniffi::RustBuffer,
+    target_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_node_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_node_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(target_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "target_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_validator_info_request(
+    submitter_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_validator_info_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_validator_info_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_pool_config_request(
+    submitter_did: uniffi::RustBuffer,
+    writes: i8,
+    force: i8,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_pool_config_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_pool_config_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <bool as uniffi::FfiConverter>::try_lift(writes) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "writes"))
+                }
+            },
+            match <bool as uniffi::FfiConverter>::try_lift(force) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "force"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_pool_restart_request(
+    submitter_did: uniffi::RustBuffer,
+    action: uniffi::RustBuffer,
+    datetime: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_pool_restart_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_pool_restart_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(action) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "action"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(datetime) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "datetime"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_pool_upgrade_request(
+    submitter_did: uniffi::RustBuffer,
+    name: uniffi::RustBuffer,
+    version: uniffi::RustBuffer,
+    action: uniffi::RustBuffer,
+    sha256: uniffi::RustBuffer,
+    upgrade_timeout: u32,
+    schedule: uniffi::RustBuffer,
+    justification: uniffi::RustBuffer,
+    reinstall: i8,
+    force: i8,
+    package: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_pool_upgrade_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_pool_upgrade_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(name) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "name"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(action) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "action"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(sha256) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "sha256"))
+                }
+            },
+            match <u32 as uniffi::FfiConverter>::try_lift(upgrade_timeout) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "upgrade_timeout"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(schedule) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "schedule"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(justification) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "justification"))
+                }
+            },
+            match <bool as uniffi::FfiConverter>::try_lift(reinstall) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "reinstall"))
+                }
+            },
+            match <bool as uniffi::FfiConverter>::try_lift(force) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "force"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(package) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "package"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_revoc_reg_def_request(
+    submitter_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_revoc_reg_def_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_revoc_reg_def_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_revoc_reg_def_request(
+    submitter_did: uniffi::RustBuffer,
+    id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_revoc_reg_def_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_revoc_reg_def_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_revoc_reg_def_response(
+    get_revoc_reg_def_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_revoc_reg_def_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_revoc_reg_def_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_revoc_reg_def_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_revoc_reg_def_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_revoc_reg_entry_request(
+    submitter_did: uniffi::RustBuffer,
+    revoc_reg_def_id: uniffi::RustBuffer,
+    rev_def_type: uniffi::RustBuffer,
+    value: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_revoc_reg_entry_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_revoc_reg_entry_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(revoc_reg_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "revoc_reg_def_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_def_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_def_type"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(value) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "value"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_revoc_reg_request(
+    submitter_did: uniffi::RustBuffer,
+    revoc_reg_def_id: uniffi::RustBuffer,
+    timestamp: i64,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_revoc_reg_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_revoc_reg_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(revoc_reg_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "revoc_reg_def_id"))
+                }
+            },
+            match <i64 as uniffi::FfiConverter>::try_lift(timestamp) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "timestamp"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_revoc_reg_response(
+    get_revoc_reg_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_revoc_reg_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_revoc_reg_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_revoc_reg_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_revoc_reg_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringStringU64 as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_revoc_reg_delta_request(
+    submitter_did: uniffi::RustBuffer,
+    revoc_reg_def_id: uniffi::RustBuffer,
+    from: i64,
+    to: i64,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_revoc_reg_delta_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_revoc_reg_delta_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(revoc_reg_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "revoc_reg_def_id"))
+                }
+            },
+            match <i64 as uniffi::FfiConverter>::try_lift(from) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "from"))
+                }
+            },
+            match <i64 as uniffi::FfiConverter>::try_lift(to) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "to"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_parse_get_revoc_reg_delta_response(
+    get_revoc_reg_delta_response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_parse_get_revoc_reg_delta_response");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = parse_get_revoc_reg_delta_response(
+            match <String as uniffi::FfiConverter>::try_lift(get_revoc_reg_delta_response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "get_revoc_reg_delta_response"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringStringU64 as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_get_response_metadata(
+    response: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_get_response_metadata");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval =
+            get_response_metadata(match <String as uniffi::FfiConverter>::try_lift(response) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "response"))
+                }
+            })
+            .map_err(Into::into)
+            .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_auth_rule_request(
+    submitter_did: uniffi::RustBuffer,
+    txn_type: uniffi::RustBuffer,
+    action: uniffi::RustBuffer,
+    field: uniffi::RustBuffer,
+    old_value: uniffi::RustBuffer,
+    new_value: uniffi::RustBuffer,
+    constraint: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_auth_rule_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_auth_rule_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(txn_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "txn_type"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(action) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "action"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(field) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "field"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(old_value) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "old_value"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(new_value) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "new_value"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(constraint) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "constraint"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_auth_rules_request(
+    submitter_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_auth_rules_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_auth_rules_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_auth_rule_request(
+    submitter_did: uniffi::RustBuffer,
+    txn_type: uniffi::RustBuffer,
+    action: uniffi::RustBuffer,
+    field: uniffi::RustBuffer,
+    old_value: uniffi::RustBuffer,
+    new_value: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_auth_rule_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_auth_rule_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(txn_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "txn_type"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(action) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "action"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(field) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "field"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(old_value) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "old_value"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(new_value) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "new_value"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_txn_author_agreement_request(
+    submitter_did: uniffi::RustBuffer,
+    text: uniffi::RustBuffer,
+    version: uniffi::RustBuffer,
+    ratification_ts: uniffi::RustBuffer,
+    retirement_ts: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_txn_author_agreement_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_txn_author_agreement_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(text) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "text"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+            match <std::option::Option<u64> as uniffi::FfiConverter>::try_lift(ratification_ts) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "ratification_ts"))
+                }
+            },
+            match <std::option::Option<u64> as uniffi::FfiConverter>::try_lift(retirement_ts) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "retirement_ts"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_disable_all_txn_author_agreements_request(
+    submitter_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_disable_all_txn_author_agreements_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_disable_all_txn_author_agreements_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_txn_author_agreement_request(
+    submitter_did: uniffi::RustBuffer,
+    data: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_txn_author_agreement_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_txn_author_agreement_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(data) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "data"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_acceptance_mechanisms_request(
+    submitter_did: uniffi::RustBuffer,
+    aml: uniffi::RustBuffer,
+    version: uniffi::RustBuffer,
+    aml_context: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_acceptance_mechanisms_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_acceptance_mechanisms_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(aml) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "aml"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(aml_context) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "aml_context"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_acceptance_mechanisms_request(
+    submitter_did: uniffi::RustBuffer,
+    timestamp: i64,
+    version: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_acceptance_mechanisms_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_acceptance_mechanisms_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <i64 as uniffi::FfiConverter>::try_lift(timestamp) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "timestamp"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_append_txn_author_agreement_acceptance_to_request(
+    request_json: uniffi::RustBuffer,
+    text: uniffi::RustBuffer,
+    version: uniffi::RustBuffer,
+    taa_digest: uniffi::RustBuffer,
+    mechanism: uniffi::RustBuffer,
+    time: u64,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_append_txn_author_agreement_acceptance_to_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = append_txn_author_agreement_acceptance_to_request(
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(text) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "text"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(taa_digest) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "taa_digest"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(mechanism) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "mechanism"))
+                }
+            },
+            match <u64 as uniffi::FfiConverter>::try_lift(time) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "time"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_append_request_endorser(
+    request_json: uniffi::RustBuffer,
+    endorser_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_append_request_endorser");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = append_request_endorser(
+            match <String as uniffi::FfiConverter>::try_lift(request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "request_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(endorser_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "endorser_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_ledgers_freeze_request(
+    submitter_did: uniffi::RustBuffer,
+    ledgers_ids: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_ledgers_freeze_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_ledgers_freeze_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+            match <std::vec::Vec<u64> as uniffi::FfiConverter>::try_lift(ledgers_ids) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "ledgers_ids"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_build_get_frozen_ledgers_request(
+    submitter_did: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_build_get_frozen_ledgers_request");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = build_get_frozen_ledgers_request(
+            match <String as uniffi::FfiConverter>::try_lift(submitter_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "submitter_did"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_create_schema(
+    issuer_did: uniffi::RustBuffer,
+    name: uniffi::RustBuffer,
+    version: uniffi::RustBuffer,
+    attrs: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_create_schema");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_create_schema(
+            match <String as uniffi::FfiConverter>::try_lift(issuer_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "issuer_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(name) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "name"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(version) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "version"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(attrs) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "attrs"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_create_and_store_credential_def(
+    wallet_handle: i32,
+    issuer_did: uniffi::RustBuffer,
+    schema_json: uniffi::RustBuffer,
+    tag: uniffi::RustBuffer,
+    signature_type: uniffi::RustBuffer,
+    config_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_create_and_store_credential_def");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_create_and_store_credential_def(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(issuer_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "issuer_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(schema_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "schema_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(tag) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "tag"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(signature_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "signature_type"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(config_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "config_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_rotate_credential_def_start(
+    wallet_handle: i32,
+    cred_def_id: uniffi::RustBuffer,
+    config_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_rotate_credential_def_start");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_rotate_credential_def_start(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(config_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "config_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_rotate_credential_def_apply(
+    wallet_handle: i32,
+    cred_def_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_rotate_credential_def_apply");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_rotate_credential_def_apply(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_create_and_store_revoc_reg(
+    wallet_handle: i32,
+    issuer_did: uniffi::RustBuffer,
+    revoc_def_type: uniffi::RustBuffer,
+    tag: uniffi::RustBuffer,
+    cred_def_id: uniffi::RustBuffer,
+    config_json: uniffi::RustBuffer,
+    tails_writer_handle: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_create_and_store_revoc_reg");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_create_and_store_revoc_reg(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(issuer_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "issuer_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(revoc_def_type) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "revoc_def_type"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(tag) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "tag"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(config_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "config_json"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(tails_writer_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "tails_writer_handle"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_create_credential_offer(
+    wallet_handle: i32,
+    cred_def_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_create_credential_offer");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_create_credential_offer(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_create_credential(
+    wallet_handle: i32,
+    cred_offer_json: uniffi::RustBuffer,
+    cred_req_json: uniffi::RustBuffer,
+    cred_values_json: uniffi::RustBuffer,
+    rev_reg_id: uniffi::RustBuffer,
+    blob_storage_reader_handle: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_create_credential");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_create_credential(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_offer_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_offer_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_req_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_req_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_values_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_values_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_id"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(blob_storage_reader_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "blob_storage_reader_handle"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringStringString122 as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_revoke_credential(
+    wallet_handle: i32,
+    blob_storage_reader_cfg_handle: i32,
+    rev_reg_id: uniffi::RustBuffer,
+    cred_revoc_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_revoke_credential");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_revoke_credential(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <i32 as uniffi::FfiConverter>::try_lift(blob_storage_reader_cfg_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "blob_storage_reader_cfg_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_revoc_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_revoc_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_issuer_merge_revocation_registry_deltas(
+    rev_reg_delta_json: uniffi::RustBuffer,
+    other_rev_reg_delta_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_issuer_merge_revocation_registry_deltas");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = issuer_merge_revocation_registry_deltas(
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_delta_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_delta_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(other_rev_reg_delta_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "other_rev_reg_delta_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_create_master_secret(
+    wallet_handle: i32,
+    master_secret_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_create_master_secret");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_create_master_secret(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(master_secret_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "master_secret_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_get_credential(
+    wallet_handle: i32,
+    cred_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_get_credential");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_get_credential(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_delete_credential(
+    wallet_handle: i32,
+    cred_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_delete_credential");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_delete_credential(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_create_credential_req(
+    wallet_handle: i32,
+    prover_did: uniffi::RustBuffer,
+    cred_offer_json: uniffi::RustBuffer,
+    cred_def_json: uniffi::RustBuffer,
+    master_secret_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_create_credential_req");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_create_credential_req(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(prover_did) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "prover_did"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_offer_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_offer_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(master_secret_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "master_secret_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeStringString as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_set_credential_attr_tag_policy(
+    wallet_handle: i32,
+    cred_def_id: uniffi::RustBuffer,
+    tag_attrs_json: uniffi::RustBuffer,
+    retroactive: i8,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_set_credential_attr_tag_policy");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_set_credential_attr_tag_policy(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(tag_attrs_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "tag_attrs_json"))
+                }
+            },
+            match <bool as uniffi::FfiConverter>::try_lift(retroactive) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "retroactive"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_get_credential_attr_tag_policy(
+    wallet_handle: i32,
+    cred_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_get_credential_attr_tag_policy");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_get_credential_attr_tag_policy(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_store_credential(
+    wallet_handle: i32,
+    cred_id: uniffi::RustBuffer,
+    cred_req_metadata_json: uniffi::RustBuffer,
+    cred_json: uniffi::RustBuffer,
+    cred_def_json: uniffi::RustBuffer,
+    rev_reg_def_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_store_credential");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_store_credential(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_req_metadata_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_req_metadata_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_def_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_def_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_def_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_def_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_get_credentials(
+    wallet_handle: i32,
+    filter_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_get_credentials");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_get_credentials(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(filter_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "filter_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_search_credentials(
+    wallet_handle: i32,
+    query_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_search_credentials");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_search_credentials(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(query_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "query_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<FfiConverterTypeSearchHandleAndLength as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_fetch_credentials(
+    search_handle: i32,
+    count: u64,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_fetch_credentials");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_fetch_credentials(
+            match <i32 as uniffi::FfiConverter>::try_lift(search_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "search_handle"))
+                }
+            },
+            match <u64 as uniffi::FfiConverter>::try_lift(count) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "count"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_close_credentials_search(
+    search_handle: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_close_credentials_search");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_close_credentials_search(
+            match <i32 as uniffi::FfiConverter>::try_lift(search_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "search_handle"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_get_credentials_for_proof_req(
+    wallet_handle: i32,
+    proof_request_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_get_credentials_for_proof_req");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_get_credentials_for_proof_req(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(proof_request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "proof_request_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_search_credentials_for_proof_req(
+    wallet_handle: i32,
+    proof_request_json: uniffi::RustBuffer,
+    extra_query_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> i32 {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_search_credentials_for_proof_req");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_search_credentials_for_proof_req(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(proof_request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "proof_request_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(extra_query_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "extra_query_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<i32 as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_fetch_credentials_for_proof_req(
+    search_handle: i32,
+    item_referent: uniffi::RustBuffer,
+    count: u64,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_fetch_credentials_for_proof_req");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_fetch_credentials_for_proof_req(
+            match <i32 as uniffi::FfiConverter>::try_lift(search_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "search_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(item_referent) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "item_referent"))
+                }
+            },
+            match <u64 as uniffi::FfiConverter>::try_lift(count) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "count"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_close_credentials_search_for_proof_req(
+    search_handle: i32,
+    call_status: &mut uniffi::RustCallStatus,
+) {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_close_credentials_search_for_proof_req");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_close_credentials_search_for_proof_req(
+            match <i32 as uniffi::FfiConverter>::try_lift(search_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "search_handle"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(_retval)
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_prover_create_proof(
+    wallet_handle: i32,
+    proof_req_json: uniffi::RustBuffer,
+    requested_credentials_json: uniffi::RustBuffer,
+    master_secret_id: uniffi::RustBuffer,
+    schemas_json: uniffi::RustBuffer,
+    credential_defs_json: uniffi::RustBuffer,
+    rev_states_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_prover_create_proof");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = prover_create_proof(
+            match <i32 as uniffi::FfiConverter>::try_lift(wallet_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "wallet_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(proof_req_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "proof_req_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(requested_credentials_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "requested_credentials_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(master_secret_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "master_secret_id"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(schemas_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "schemas_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(credential_defs_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "credential_defs_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_states_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_states_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_verifier_verify_proof(
+    proof_request_json: uniffi::RustBuffer,
+    proof_json: uniffi::RustBuffer,
+    schemas_json: uniffi::RustBuffer,
+    credential_defs_json: uniffi::RustBuffer,
+    rev_reg_defs_json: uniffi::RustBuffer,
+    rev_regs_json: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> i8 {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_verifier_verify_proof");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = verifier_verify_proof(
+            match <String as uniffi::FfiConverter>::try_lift(proof_request_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "proof_request_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(proof_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "proof_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(schemas_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "schemas_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(credential_defs_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "credential_defs_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_defs_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_defs_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_regs_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_regs_json"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<bool as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_create_revocation_state(
+    blob_storage_reader_handle: i32,
+    rev_reg_def_json: uniffi::RustBuffer,
+    rev_reg_delta_json: uniffi::RustBuffer,
+    timestamp: u64,
+    cred_rev_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_create_revocation_state");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = create_revocation_state(
+            match <i32 as uniffi::FfiConverter>::try_lift(blob_storage_reader_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "blob_storage_reader_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_def_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_def_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_delta_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_delta_json"))
+                }
+            },
+            match <u64 as uniffi::FfiConverter>::try_lift(timestamp) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "timestamp"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_rev_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_rev_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_update_revocation_state(
+    blob_storage_reader_handle: i32,
+    rev_state_json: uniffi::RustBuffer,
+    rev_reg_def_json: uniffi::RustBuffer,
+    rev_reg_delta_json: uniffi::RustBuffer,
+    timestamp: u64,
+    cred_rev_id: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_update_revocation_state");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = update_revocation_state(
+            match <i32 as uniffi::FfiConverter>::try_lift(blob_storage_reader_handle) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "blob_storage_reader_handle"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_state_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_state_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_def_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_def_json"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(rev_reg_delta_json) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "rev_reg_delta_json"))
+                }
+            },
+            match <u64 as uniffi::FfiConverter>::try_lift(timestamp) {
+                Ok(val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "timestamp"))
+                }
+            },
+            match <String as uniffi::FfiConverter>::try_lift(cred_rev_id) {
+                Ok(ref val) => val,
+
+                Err(err) => {
+                    return Err(uniffi::lower_anyhow_error_or_panic::<
+                        FfiConverterTypeIndyError2,
+                    >(err, "cred_rev_id"))
+                }
+            },
+        )
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_generate_nonce(
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_generate_nonce");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = generate_nonce()
+            .map_err(Into::into)
+            .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
+    })
+}
+
+#[doc(hidden)]
+#[no_mangle]
+pub extern "C" fn lib_2f6d_to_unqualified(
+    entity: uniffi::RustBuffer,
+    call_status: &mut uniffi::RustCallStatus,
+) -> uniffi::RustBuffer {
+    // If the provided function does not match the signature specified in the UDL
+    // then this attempt to call it will not compile, and will give guidance as to why.
+    uniffi::deps::log::debug!("lib_2f6d_to_unqualified");
+
+    uniffi::call_with_result(call_status, || {
+        let _retval = to_unqualified(match <String as uniffi::FfiConverter>::try_lift(entity) {
+            Ok(ref val) => val,
+
+            Err(err) => {
+                return Err(uniffi::lower_anyhow_error_or_panic::<
+                    FfiConverterTypeIndyError2,
+                >(err, "entity"))
+            }
+        })
+        .map_err(Into::into)
+        .map_err(<FfiConverterTypeIndyError2 as uniffi::FfiConverter>::lower)?;
+        Ok(<String as uniffi::FfiConverter>::lower(_retval))
     })
 }
 // Object definitions, corresponding to UDL `interface` definitions.

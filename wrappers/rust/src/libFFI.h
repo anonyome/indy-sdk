@@ -46,247 +46,567 @@ typedef struct RustCallStatus {
 // ⚠️ increment the version suffix in all instances of UNIFFI_SHARED_HEADER_V4 in this file.           ⚠️
 #endif // def UNIFFI_SHARED_H
 
-RustBuffer lib_16d0_set_runtime_config(
+RustBuffer lib_2f6d_set_runtime_config(
       RustBuffer config,
     RustCallStatus *_Nonnull out_status
     );
-int32_t lib_16d0_open_reader(
+int32_t lib_2f6d_open_reader(
       RustBuffer xtype,RustBuffer config_json,
     RustCallStatus *_Nonnull out_status
     );
-int32_t lib_16d0_open_writer(
+int32_t lib_2f6d_open_writer(
       RustBuffer xtype,RustBuffer config_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_register_wallet_storage(
+void lib_2f6d_register_wallet_storage(
       RustBuffer xtype,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_create_wallet(
+void lib_2f6d_create_wallet(
       RustBuffer config,RustBuffer credentials,
     RustCallStatus *_Nonnull out_status
     );
-int32_t lib_16d0_open_wallet(
+int32_t lib_2f6d_open_wallet(
       RustBuffer config,RustBuffer credentials,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_export_wallet(
+void lib_2f6d_export_wallet(
       int32_t wallet_handle,RustBuffer export_config,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_import_wallet(
+void lib_2f6d_import_wallet(
       RustBuffer config,RustBuffer credentials,RustBuffer import_config,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_delete_wallet(
+void lib_2f6d_delete_wallet(
       RustBuffer config,RustBuffer credentials,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_close_wallet(
+void lib_2f6d_close_wallet(
       int32_t wallet_handle,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_add_wallet_record(
+void lib_2f6d_add_wallet_record(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer value,RustBuffer tags_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_update_wallet_record_value(
+void lib_2f6d_update_wallet_record_value(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer value,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_update_wallet_record_tags(
+void lib_2f6d_update_wallet_record_tags(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer tags_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_add_wallet_record_tags(
+void lib_2f6d_add_wallet_record_tags(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer tags_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_delete_wallet_record_tags(
+void lib_2f6d_delete_wallet_record_tags(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer tag_names_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_delete_wallet_record(
+void lib_2f6d_delete_wallet_record(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_wallet_record(
+RustBuffer lib_2f6d_get_wallet_record(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer id,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-int32_t lib_16d0_open_wallet_search(
+int32_t lib_2f6d_open_wallet_search(
       int32_t wallet_handle,RustBuffer xtype,RustBuffer query_json,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_fetch_wallet_search_next_records(
+RustBuffer lib_2f6d_fetch_wallet_search_next_records(
       int32_t wallet_handle,int32_t wallet_search_handle,uint64_t count,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_close_wallet_search(
+void lib_2f6d_close_wallet_search(
       int32_t wallet_search_handle,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_generate_wallet_key(
+RustBuffer lib_2f6d_generate_wallet_key(
       RustBuffer config,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_create_pool_ledger_config(
+void lib_2f6d_create_pool_ledger_config(
       RustBuffer pool_name,RustBuffer pool_config,
     RustCallStatus *_Nonnull out_status
     );
-int32_t lib_16d0_open_pool_ledger(
+int32_t lib_2f6d_open_pool_ledger(
       RustBuffer pool_name,RustBuffer config,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_refresh_pool_ledger(
+void lib_2f6d_refresh_pool_ledger(
       int32_t pool_handle,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_list_pools(
+RustBuffer lib_2f6d_list_pools(
       
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_close_pool_ledger(
+void lib_2f6d_close_pool_ledger(
       int32_t pool_handle,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_delete_pool_ledger(
+void lib_2f6d_delete_pool_ledger(
       RustBuffer pool_name,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_set_protocol_version(
+void lib_2f6d_set_protocol_version(
       uint64_t protocol_version,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_create_and_store_my_did(
+RustBuffer lib_2f6d_create_and_store_my_did(
       int32_t wallet_handle,RustBuffer did_json,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_replace_keys_start(
+RustBuffer lib_2f6d_replace_keys_start(
       int32_t wallet_handle,RustBuffer tgt_did,RustBuffer identity_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_replace_keys_apply(
+void lib_2f6d_replace_keys_apply(
       int32_t wallet_handle,RustBuffer tgt_did,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_store_their_did(
+void lib_2f6d_store_their_did(
       int32_t wallet_handle,RustBuffer identity_json,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_key_for_did(
+RustBuffer lib_2f6d_key_for_did(
       int32_t pool_handle,int32_t wallet_handle,RustBuffer did,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_key_for_local_did(
+RustBuffer lib_2f6d_key_for_local_did(
       int32_t wallet_handle,RustBuffer did,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_set_endpoint_for_did(
+void lib_2f6d_set_endpoint_for_did(
       int32_t wallet_handle,RustBuffer did,RustBuffer address,RustBuffer transport_key,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_endpoint_for_did(
+RustBuffer lib_2f6d_get_endpoint_for_did(
       int32_t wallet_handle,int32_t pool_handle,RustBuffer did,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_set_did_metadata(
+void lib_2f6d_set_did_metadata(
       int32_t wallet_handle,RustBuffer tgt_did,RustBuffer metadata,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_did_metadata(
+RustBuffer lib_2f6d_get_did_metadata(
       int32_t wallet_handle,RustBuffer tgt_did,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_my_did_with_metadata(
+RustBuffer lib_2f6d_get_my_did_with_metadata(
       int32_t wallet_handle,RustBuffer my_did,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_list_my_dids_with_metadata(
+RustBuffer lib_2f6d_list_my_dids_with_metadata(
       int32_t wallet_handle,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_abbreviate_verkey(
+RustBuffer lib_2f6d_abbreviate_verkey(
       RustBuffer tgt_did,RustBuffer verkey,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_qualify_did(
+RustBuffer lib_2f6d_qualify_did(
       int32_t wallet_handle,RustBuffer did,RustBuffer method,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_schema(
+RustBuffer lib_2f6d_get_schema(
       int32_t pool_handle,int32_t wallet_handle,RustBuffer submitter_did,RustBuffer id,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_cred_def(
+RustBuffer lib_2f6d_get_cred_def(
       int32_t pool_handle,int32_t wallet_handle,RustBuffer submitter_did,RustBuffer id,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_purge_schema_cache(
+void lib_2f6d_purge_schema_cache(
       int32_t wallet_handle,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_purge_cred_def_cache(
+void lib_2f6d_purge_cred_def_cache(
       int32_t wallet_handle,RustBuffer options_json,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_create_key(
+RustBuffer lib_2f6d_create_key(
       int32_t wallet_handle,RustBuffer my_key_json,
     RustCallStatus *_Nonnull out_status
     );
-void lib_16d0_set_key_metadata(
+void lib_2f6d_set_key_metadata(
       int32_t wallet_handle,RustBuffer verkey,RustBuffer metadata,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_get_key_metadata(
+RustBuffer lib_2f6d_get_key_metadata(
       int32_t wallet_handle,RustBuffer verkey,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_sign(
+RustBuffer lib_2f6d_sign(
       int32_t wallet_handle,RustBuffer signer_vk,RustBuffer message,
     RustCallStatus *_Nonnull out_status
     );
-int8_t lib_16d0_verify(
+int8_t lib_2f6d_verify(
       RustBuffer signer_vk,RustBuffer message,RustBuffer signature,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_auth_crypt(
+RustBuffer lib_2f6d_auth_crypt(
       int32_t wallet_handle,RustBuffer sender_vk,RustBuffer recipient_vk,RustBuffer message,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_auth_decrypt(
+RustBuffer lib_2f6d_auth_decrypt(
       int32_t wallet_handle,RustBuffer recipient_vk,RustBuffer encrypted_message,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_anon_crypt(
+RustBuffer lib_2f6d_anon_crypt(
       RustBuffer recipient_vk,RustBuffer message,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_anon_decrypt(
+RustBuffer lib_2f6d_anon_decrypt(
       int32_t wallet_handle,RustBuffer recipient_vk,RustBuffer encrypted_message,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_pack_message(
+RustBuffer lib_2f6d_pack_message(
       int32_t wallet_handle,RustBuffer message,RustBuffer receiver_keys,RustBuffer sender,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer lib_16d0_unpack_message(
+RustBuffer lib_2f6d_unpack_message(
       int32_t wallet_handle,RustBuffer jwe,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_lib_16d0_rustbuffer_alloc(
+RustBuffer lib_2f6d_collect_metrics(
+      
+    RustCallStatus *_Nonnull out_status
+    );
+int8_t lib_2f6d_is_pairwise_exists(
+      int32_t wallet_handle,RustBuffer their_did,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_create_pairwise(
+      int32_t wallet_handle,RustBuffer their_did,RustBuffer my_did,RustBuffer metadata,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_list_pairwise(
+      int32_t wallet_handle,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_get_pairwise(
+      int32_t wallet_handle,RustBuffer their_did,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_set_pairwise_metadata(
+      int32_t wallet_handle,RustBuffer their_did,RustBuffer metadata,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_sign_and_submit_request(
+      int32_t pool_handle,int32_t wallet_handle,RustBuffer submitter_did,RustBuffer request_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_submit_request(
+      int32_t pool_handle,RustBuffer request_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_submit_action(
+      int32_t pool_handle,RustBuffer request_json,RustBuffer nodes,int32_t wait_timeout,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_sign_request(
+      int32_t wallet_handle,RustBuffer submitter_did,RustBuffer request_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_multi_sign_request(
+      int32_t wallet_handle,RustBuffer submitter_did,RustBuffer request_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_ddo_request(
+      RustBuffer submitter_did,RustBuffer target_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_nym_request(
+      RustBuffer submitter_did,RustBuffer target_did,RustBuffer verkey,RustBuffer data,RustBuffer role,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_nym_request(
+      RustBuffer submitter_did,RustBuffer target_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_nym_response(
+      RustBuffer get_nym_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_txn_request(
+      RustBuffer submitter_did,RustBuffer ledger_type,int32_t seq_no,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_attrib_request(
+      RustBuffer submitter_did,RustBuffer target_did,RustBuffer hash,RustBuffer raw,RustBuffer enc,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_attrib_request(
+      RustBuffer submitter_did,RustBuffer target_did,RustBuffer raw,RustBuffer hash,RustBuffer enc,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_schema_request(
+      RustBuffer ubmitter_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_schema_request(
+      RustBuffer submitter_did,RustBuffer id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_schema_response(
+      RustBuffer get_schema_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_cred_def_request(
+      RustBuffer submitter_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_cred_def_request(
+      RustBuffer submitter_did,RustBuffer id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_cred_def_response(
+      RustBuffer get_cred_def_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_node_request(
+      RustBuffer submitter_did,RustBuffer target_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_validator_info_request(
+      RustBuffer submitter_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_pool_config_request(
+      RustBuffer submitter_did,int8_t writes,int8_t force,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_pool_restart_request(
+      RustBuffer submitter_did,RustBuffer action,RustBuffer datetime,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_pool_upgrade_request(
+      RustBuffer submitter_did,RustBuffer name,RustBuffer version,RustBuffer action,RustBuffer sha256,uint32_t upgrade_timeout,RustBuffer schedule,RustBuffer justification,int8_t reinstall,int8_t force,RustBuffer package,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_revoc_reg_def_request(
+      RustBuffer submitter_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_revoc_reg_def_request(
+      RustBuffer submitter_did,RustBuffer id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_revoc_reg_def_response(
+      RustBuffer get_revoc_reg_def_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_revoc_reg_entry_request(
+      RustBuffer submitter_did,RustBuffer revoc_reg_def_id,RustBuffer rev_def_type,RustBuffer value,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_revoc_reg_request(
+      RustBuffer submitter_did,RustBuffer revoc_reg_def_id,int64_t timestamp,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_revoc_reg_response(
+      RustBuffer get_revoc_reg_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_revoc_reg_delta_request(
+      RustBuffer submitter_did,RustBuffer revoc_reg_def_id,int64_t from,int64_t to,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_parse_get_revoc_reg_delta_response(
+      RustBuffer get_revoc_reg_delta_response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_get_response_metadata(
+      RustBuffer response,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_auth_rule_request(
+      RustBuffer submitter_did,RustBuffer txn_type,RustBuffer action,RustBuffer field,RustBuffer old_value,RustBuffer new_value,RustBuffer constraint,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_auth_rules_request(
+      RustBuffer submitter_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_auth_rule_request(
+      RustBuffer submitter_did,RustBuffer txn_type,RustBuffer action,RustBuffer field,RustBuffer old_value,RustBuffer new_value,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_txn_author_agreement_request(
+      RustBuffer submitter_did,RustBuffer text,RustBuffer version,RustBuffer ratification_ts,RustBuffer retirement_ts,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_disable_all_txn_author_agreements_request(
+      RustBuffer submitter_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_txn_author_agreement_request(
+      RustBuffer submitter_did,RustBuffer data,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_acceptance_mechanisms_request(
+      RustBuffer submitter_did,RustBuffer aml,RustBuffer version,RustBuffer aml_context,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_acceptance_mechanisms_request(
+      RustBuffer submitter_did,int64_t timestamp,RustBuffer version,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_append_txn_author_agreement_acceptance_to_request(
+      RustBuffer request_json,RustBuffer text,RustBuffer version,RustBuffer taa_digest,RustBuffer mechanism,uint64_t time,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_append_request_endorser(
+      RustBuffer request_json,RustBuffer endorser_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_ledgers_freeze_request(
+      RustBuffer submitter_did,RustBuffer ledgers_ids,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_build_get_frozen_ledgers_request(
+      RustBuffer submitter_did,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_create_schema(
+      RustBuffer issuer_did,RustBuffer name,RustBuffer version,RustBuffer attrs,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_create_and_store_credential_def(
+      int32_t wallet_handle,RustBuffer issuer_did,RustBuffer schema_json,RustBuffer tag,RustBuffer signature_type,RustBuffer config_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_rotate_credential_def_start(
+      int32_t wallet_handle,RustBuffer cred_def_id,RustBuffer config_json,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_issuer_rotate_credential_def_apply(
+      int32_t wallet_handle,RustBuffer cred_def_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_create_and_store_revoc_reg(
+      int32_t wallet_handle,RustBuffer issuer_did,RustBuffer revoc_def_type,RustBuffer tag,RustBuffer cred_def_id,RustBuffer config_json,int32_t tails_writer_handle,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_create_credential_offer(
+      int32_t wallet_handle,RustBuffer cred_def_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_create_credential(
+      int32_t wallet_handle,RustBuffer cred_offer_json,RustBuffer cred_req_json,RustBuffer cred_values_json,RustBuffer rev_reg_id,int32_t blob_storage_reader_handle,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_revoke_credential(
+      int32_t wallet_handle,int32_t blob_storage_reader_cfg_handle,RustBuffer rev_reg_id,RustBuffer cred_revoc_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_issuer_merge_revocation_registry_deltas(
+      RustBuffer rev_reg_delta_json,RustBuffer other_rev_reg_delta_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_create_master_secret(
+      int32_t wallet_handle,RustBuffer master_secret_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_get_credential(
+      int32_t wallet_handle,RustBuffer cred_id,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_prover_delete_credential(
+      int32_t wallet_handle,RustBuffer cred_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_create_credential_req(
+      int32_t wallet_handle,RustBuffer prover_did,RustBuffer cred_offer_json,RustBuffer cred_def_json,RustBuffer master_secret_id,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_prover_set_credential_attr_tag_policy(
+      int32_t wallet_handle,RustBuffer cred_def_id,RustBuffer tag_attrs_json,int8_t retroactive,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_get_credential_attr_tag_policy(
+      int32_t wallet_handle,RustBuffer cred_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_store_credential(
+      int32_t wallet_handle,RustBuffer cred_id,RustBuffer cred_req_metadata_json,RustBuffer cred_json,RustBuffer cred_def_json,RustBuffer rev_reg_def_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_get_credentials(
+      int32_t wallet_handle,RustBuffer filter_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_search_credentials(
+      int32_t wallet_handle,RustBuffer query_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_fetch_credentials(
+      int32_t search_handle,uint64_t count,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_prover_close_credentials_search(
+      int32_t search_handle,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_get_credentials_for_proof_req(
+      int32_t wallet_handle,RustBuffer proof_request_json,
+    RustCallStatus *_Nonnull out_status
+    );
+int32_t lib_2f6d_prover_search_credentials_for_proof_req(
+      int32_t wallet_handle,RustBuffer proof_request_json,RustBuffer extra_query_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_fetch_credentials_for_proof_req(
+      int32_t search_handle,RustBuffer item_referent,uint64_t count,
+    RustCallStatus *_Nonnull out_status
+    );
+void lib_2f6d_prover_close_credentials_search_for_proof_req(
+      int32_t search_handle,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_prover_create_proof(
+      int32_t wallet_handle,RustBuffer proof_req_json,RustBuffer requested_credentials_json,RustBuffer master_secret_id,RustBuffer schemas_json,RustBuffer credential_defs_json,RustBuffer rev_states_json,
+    RustCallStatus *_Nonnull out_status
+    );
+int8_t lib_2f6d_verifier_verify_proof(
+      RustBuffer proof_request_json,RustBuffer proof_json,RustBuffer schemas_json,RustBuffer credential_defs_json,RustBuffer rev_reg_defs_json,RustBuffer rev_regs_json,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_create_revocation_state(
+      int32_t blob_storage_reader_handle,RustBuffer rev_reg_def_json,RustBuffer rev_reg_delta_json,uint64_t timestamp,RustBuffer cred_rev_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_update_revocation_state(
+      int32_t blob_storage_reader_handle,RustBuffer rev_state_json,RustBuffer rev_reg_def_json,RustBuffer rev_reg_delta_json,uint64_t timestamp,RustBuffer cred_rev_id,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_generate_nonce(
+      
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer lib_2f6d_to_unqualified(
+      RustBuffer entity,
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer ffi_lib_2f6d_rustbuffer_alloc(
       int32_t size,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_lib_16d0_rustbuffer_from_bytes(
+RustBuffer ffi_lib_2f6d_rustbuffer_from_bytes(
       ForeignBytes bytes,
     RustCallStatus *_Nonnull out_status
     );
-void ffi_lib_16d0_rustbuffer_free(
+void ffi_lib_2f6d_rustbuffer_free(
       RustBuffer buf,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_lib_16d0_rustbuffer_reserve(
+RustBuffer ffi_lib_2f6d_rustbuffer_reserve(
       RustBuffer buf,int32_t additional,
     RustCallStatus *_Nonnull out_status
     );

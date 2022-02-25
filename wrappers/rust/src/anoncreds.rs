@@ -47,6 +47,11 @@ https://github.com/hyperledger/indy-hipe/blob/c761c583b1e01c1e9d3ceda2b03b35336f
 /// # Returns
 /// * `schema_id`: identifier of created schema
 /// * `schema_json`: schema as json
+pub fn u_issuer_create_schema(issuer_did: &str, name: &str, version: &str, attrs: &str) -> Result<(String, String), IndyError>  {
+
+    return issuer_create_schema(issuer_did, name, version, attrs).wait();
+}
+
 pub fn issuer_create_schema(issuer_did: &str, name: &str, version: &str, attrs: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -110,6 +115,12 @@ fn _issuer_create_schema(command_handle: CommandHandle, issuer_did: &str, name: 
 /// Note: `primary` and `revocation` fields of credential definition are complex opaque types that contain data structures internal to Ursa.
 /// They should not be parsed and are likely to change in future versions.
 ///
+pub fn u_issuer_create_and_store_credential_def(wallet_handle: i32, issuer_did: &str, schema_json: &str, 
+    tag: &str, signature_type: Option<&str>, config_json: &str) -> Result<(String, String), IndyError> {
+    
+        return issuer_create_and_store_credential_def(WalletHandle(wallet_handle), issuer_did, schema_json, tag, signature_type, config_json).wait();
+}
+
 pub fn issuer_create_and_store_credential_def(wallet_handle: WalletHandle, issuer_did: &str, schema_json: &str, tag: &str, signature_type: Option<&str>, config_json: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -152,6 +163,11 @@ fn _issuer_create_and_store_credential_def(command_handle: CommandHandle, wallet
 ///
 /// # Returns
 /// * `cred_def_json`: public part of temporary created credential definition
+pub fn u_issuer_rotate_credential_def_start(wallet_handle: i32, cred_def_id: &str, config_json: &str) -> Result<String, IndyError> {
+
+    return issuer_rotate_credential_def_start(WalletHandle(wallet_handle), cred_def_id, Some(config_json)).wait();
+}
+
 pub fn issuer_rotate_credential_def_start(wallet_handle: WalletHandle, cred_def_id: &str, config_json: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -182,6 +198,11 @@ fn _issuer_rotate_credential_def_start(command_handle: CommandHandle, wallet_han
 /// * `cred_def_id`: an identifier of created credential definition stored in the wallet
 ///
 /// # Returns
+pub fn u_issuer_rotate_credential_def_apply(wallet_handle: i32, cred_def_id: &str) -> Result<(), IndyError> {
+
+    return issuer_rotate_credential_def_apply(WalletHandle(wallet_handle), cred_def_id).wait();
+}
+
 pub fn issuer_rotate_credential_def_apply(wallet_handle: WalletHandle, cred_def_id: &str) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -271,6 +292,18 @@ fn _issuer_rotate_credential_def_apply(command_handle: CommandHandle, wallet_han
 ///     },
 ///     ver: string - version revocation registry entry json
 /// }
+pub fn u_issuer_create_and_store_revoc_reg(wallet_handle: i32,
+    issuer_did: &str,
+    revoc_def_type: &str,
+    tag: &str,
+    cred_def_id: &str,
+    config_json: &str,
+    tails_writer_handle: i32) -> Result<(String, String, String), IndyError> {
+
+    return issuer_create_and_store_revoc_reg(WalletHandle(wallet_handle), issuer_did, 
+        Some(revoc_def_type), tag, cred_def_id, config_json, tails_writer_handle).wait();
+}
+
 pub fn issuer_create_and_store_revoc_reg(wallet_handle: WalletHandle,
                                          issuer_did: &str,
                                          revoc_def_type: Option<&str>,
@@ -315,6 +348,11 @@ fn _issuer_create_and_store_revoc_reg(command_handle: CommandHandle, wallet_hand
 ///                                   (opaque type that contains data structures internal to Ursa.
 ///                                   It should not be parsed and are likely to change in future versions).
 /// }
+pub fn u_issuer_create_credential_offer(wallet_handle: i32, cred_def_id: &str) -> Result<String, IndyError> {
+
+    return issuer_create_credential_offer(WalletHandle(wallet_handle), cred_def_id).wait();
+}
+
 pub fn issuer_create_credential_offer(wallet_handle: WalletHandle, cred_def_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -373,6 +411,21 @@ fn _issuer_create_credential_offer(command_handle: CommandHandle, wallet_handle:
 ///     }
 /// * `cred_revoc_id`: local id for revocation info (Can be used for revocation of this credential)
 /// * `revoc_reg_delta_json`: Revocation registry delta json with a newly issued credential
+pub fn u_issuer_create_credential(wallet_handle: i32,
+    cred_offer_json: &str,
+    cred_req_json: &str,
+    cred_values_json: &str,
+    rev_reg_id: &str,
+    blob_storage_reader_handle: i32) -> Result<(String, Option<String>, Option<String>), IndyError> {
+
+    return issuer_create_credential(WalletHandle(wallet_handle),
+        cred_offer_json,
+        cred_req_json,
+        cred_values_json,
+        Some(rev_reg_id),
+        blob_storage_reader_handle as BlobStorageReaderHandle).wait();
+}
+
 pub fn issuer_create_credential(wallet_handle: WalletHandle,
                                 cred_offer_json: &str,
                                 cred_req_json: &str,
@@ -422,6 +475,13 @@ fn _issuer_create_credential(
 ///
 /// # Returns
 /// * `revoc_reg_delta_json`: Revocation registry delta json with a revoked credential
+pub fn u_issuer_revoke_credential(wallet_handle: i32, blob_storage_reader_cfg_handle: i32, rev_reg_id: &str, 
+    cred_revoc_id: &str) -> Result<String, IndyError> {
+
+    return issuer_revoke_credential(WalletHandle(wallet_handle), 
+        blob_storage_reader_cfg_handle as BlobStorageReaderCfgHandle, rev_reg_id, cred_revoc_id).wait();
+}
+
 pub fn issuer_revoke_credential(wallet_handle: WalletHandle, blob_storage_reader_cfg_handle: BlobStorageReaderCfgHandle, rev_reg_id: &str, cred_revoc_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -453,6 +513,11 @@ fn _issuer_revoke_credential(command_handle: CommandHandle,
 ///
 /// # Returns
 /// * `merged_rev_reg_delta` - Merged revocation registry delta
+pub fn u_issuer_merge_revocation_registry_deltas(rev_reg_delta_json: &str, other_rev_reg_delta_json: &str) -> Result<String, IndyError> {
+
+    return issuer_merge_revocation_registry_deltas(rev_reg_delta_json, other_rev_reg_delta_json).wait();
+}
+
 pub fn issuer_merge_revocation_registry_deltas(rev_reg_delta_json: &str, other_rev_reg_delta_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -480,6 +545,11 @@ fn _issuer_merge_revocation_registry_deltas(command_handle: CommandHandle, rev_r
 ///
 /// # Returns
 /// * `out_master_secret_id` - Id of generated master secret
+pub fn u_prover_create_master_secret(wallet_handle: i32, master_secret_id: &str) -> Result<String, IndyError> {
+
+    return prover_create_master_secret(WalletHandle(wallet_handle), Some(master_secret_id)).wait();
+}
+
 pub fn prover_create_master_secret(wallet_handle: WalletHandle, master_secret_id: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -511,6 +581,11 @@ fn _prover_create_master_secret(command_handle: CommandHandle, wallet_handle: Wa
 ///     "rev_reg_id": Optional<string>,
 ///     "cred_rev_id": Optional<string>
 /// }
+pub fn u_prover_get_credential(wallet_handle: i32, cred_id: &str) -> Result<String, IndyError> {
+
+    return prover_get_credential(WalletHandle(wallet_handle), cred_id).wait();
+}
+
 pub fn prover_get_credential(wallet_handle: WalletHandle, cred_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -532,6 +607,11 @@ fn _prover_get_credential(command_handle: CommandHandle, wallet_handle: WalletHa
 /// # Arguments
 /// * `wallet_handle`: wallet handle (created by Wallet::open_wallet).
 /// * `cred_id`: Identifier by which requested credential is stored in the wallet
+pub fn u_prover_delete_credential(wallet_handle: i32, cred_id: &str) -> Result<(), IndyError> {
+
+    return prover_delete_credential(WalletHandle(wallet_handle), cred_id).wait();
+}
+
 pub fn prover_delete_credential(wallet_handle: WalletHandle, cred_id: &str) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -577,6 +657,13 @@ fn _prover_delete_credential(command_handle: CommandHandle, wallet_handle: Walle
 ///    }
 /// * `cred_req_metadata_json`: Credential request metadata json for further processing of received form Issuer credential.
 ///     Note: cred_req_metadata_json mustn't be shared with Issuer.
+pub fn u_prover_create_credential_req(wallet_handle: i32, prover_did: &str, cred_offer_json: &str, 
+    cred_def_json: &str, master_secret_id: &str) -> Result<(String, String), IndyError> {
+    
+    return prover_create_credential_req(WalletHandle(wallet_handle), prover_did, cred_offer_json, 
+        cred_def_json, master_secret_id).wait();
+}
+
 pub fn prover_create_credential_req(wallet_handle: WalletHandle, prover_did: &str, cred_offer_json: &str, cred_def_json: &str, master_secret_id: &str) -> Box<dyn Future<Item=(String, String), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string_string();
 
@@ -624,6 +711,13 @@ fn _prover_create_credential_req(command_handle: CommandHandle, wallet_handle: W
 /// cred_def_id: credential definition id
 /// tag_attrs_json: JSON array with names of attributes to tag by policy, or null for all
 /// retroactive: boolean, whether to apply policy to existing credentials on credential definition identifier
+pub fn u_prover_set_credential_attr_tag_policy(wallet_handle: i32, cred_def_id: &str, 
+    tag_attrs_json: &str, retroactive: bool) -> Result<(), IndyError> {
+
+    return prover_set_credential_attr_tag_policy(WalletHandle(wallet_handle), cred_def_id, 
+        Some(tag_attrs_json), retroactive).wait();
+}
+
 pub fn prover_set_credential_attr_tag_policy(wallet_handle: WalletHandle, cred_def_id: &str, tag_attrs_json: Option<&str>, retroactive: bool) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -650,6 +744,11 @@ fn _prover_set_credential_attr_tag_policy(command_handle: CommandHandle, wallet_
 /// # Returns
 /// JSON array with all attributes that current policy marks taggable;
 /// null for default policy (tag all credential attributes).
+pub fn u_prover_get_credential_attr_tag_policy(wallet_handle: i32, cred_id: &str) -> Result<String, IndyError> {
+
+    return prover_get_credential_attr_tag_policy(WalletHandle(wallet_handle), cred_id).wait();
+}
+
 pub fn prover_get_credential_attr_tag_policy(wallet_handle: WalletHandle, cred_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -693,6 +792,11 @@ fn _prover_get_credential_attr_tag_policy(command_handle: CommandHandle, wallet_
 ///
 /// # Returns
 /// * `out_cred_id` - identifier by which credential is stored in the wallet
+pub fn u_prover_store_credential(wallet_handle: i32, cred_id: &str, cred_req_metadata_json: &str, cred_json: &str, cred_def_json: &str, rev_reg_def_json: &str) -> Result<String, IndyError> {
+
+    return prover_store_credential(WalletHandle(wallet_handle), Some(cred_id), cred_req_metadata_json, cred_json, cred_def_json, Some(rev_reg_def_json)).wait();
+}
+
 pub fn prover_store_credential(wallet_handle: WalletHandle, cred_id: Option<&str>, cred_req_metadata_json: &str, cred_json: &str, cred_def_json: &str, rev_reg_def_json: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -737,6 +841,11 @@ fn _prover_store_credential(command_handle: CommandHandle, wallet_handle: Wallet
 ///     "rev_reg_id": Optional<string>,
 ///     "cred_rev_id": Optional<string>
 /// }]
+pub fn u_prover_get_credentials(wallet_handle: i32, filter_json: &str) -> Result<String, IndyError> {
+
+    return prover_get_credentials(WalletHandle(wallet_handle), Some(filter_json)).wait();
+}
+
 pub fn prover_get_credentials(wallet_handle: WalletHandle, filter_json: Option<&str>) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -768,6 +877,11 @@ fn _prover_get_credentials(command_handle: CommandHandle, wallet_handle: WalletH
 /// # Returns
 /// * `search_handle`: Search handle that can be used later to fetch records by small batches (with fetch_credentials)
 /// * `total_count`: Total count of records
+pub fn u_prover_search_credentials(wallet_handle: i32, query_json: &str) -> Result<(SearchHandle, usize), IndyError> {
+
+    return prover_search_credentials(WalletHandle(wallet_handle), Some(query_json)).wait();
+}
+
 pub fn prover_search_credentials(wallet_handle: WalletHandle, query_json: Option<&str>) -> Box<dyn Future<Item=(SearchHandle, usize), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_handle_usize();
 
@@ -800,6 +914,11 @@ fn _prover_search_credentials(command_handle: CommandHandle, wallet_handle: Wall
 ///     "rev_reg_id": Optional<string>,
 ///     "cred_rev_id": Optional<string>
 ///  }]
+pub fn u_prover_fetch_credentials(search_handle: i32, count: usize) -> Result<String, IndyError> {
+
+    return prover_fetch_credentials(search_handle as SearchHandle, count).wait();
+}
+
 pub fn prover_fetch_credentials(search_handle: SearchHandle, count: usize) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -818,6 +937,11 @@ fn _prover_fetch_credentials(command_handle: CommandHandle, search_handle: Searc
 ///
 /// # Arguments
 /// * `search_handle`: Search handle (created by search_credentials)
+pub fn u_prover_close_credentials_search(search_handle: i32) -> Result<(), IndyError> {
+
+    return prover_close_credentials_search(search_handle as SearchHandle).wait();
+}
+
 pub fn prover_close_credentials_search(search_handle: SearchHandle) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -911,6 +1035,11 @@ fn _prover_close_credentials_search(command_handle: CommandHandle, search_handle
 ///         "rev_reg_id": Optional<int>,
 ///         "cred_rev_id": Optional<int>,
 ///     }
+pub fn u_prover_get_credentials_for_proof_req(wallet_handle: i32, proof_request_json: &str) -> Result<String, IndyError> {
+
+    return prover_get_credentials_for_proof_req(WalletHandle(wallet_handle), proof_request_json).wait();
+}
+
 pub fn prover_get_credentials_for_proof_req(wallet_handle: WalletHandle, proof_request_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -995,6 +1124,14 @@ fn _prover_get_credentials_for_proof_req(command_handle: CommandHandle, wallet_h
 ///
 /// # Returns
 /// * `search_handle`: Search handle that can be used later to fetch records by small batches (with fetch_credentials_for_proof_req)
+pub fn u_prover_search_credentials_for_proof_req(wallet_handle: i32,
+    proof_request_json: &str,
+    extra_query_json: &str) -> Result<CommandHandle, IndyError> {
+
+    return prover_search_credentials_for_proof_req(WalletHandle(wallet_handle),
+        proof_request_json, Some(extra_query_json)).wait();
+}
+
 pub fn prover_search_credentials_for_proof_req(wallet_handle: WalletHandle,
                                                proof_request_json: &str,
                                                extra_query_json: Option<&str>) -> Box<dyn Future<Item=CommandHandle, Error=IndyError>> {
@@ -1048,6 +1185,11 @@ fn _prover_search_credentials_for_proof_req(command_handle: CommandHandle,
 ///     }
 /// NOTE: The list of length less than the requested count means that search iterator
 /// correspondent to the requested <item_referent> is completed.
+pub fn u_prover_fetch_credentials_for_proof_req(search_handle: i32, item_referent: &str, count: usize) -> Result<String, IndyError> {
+
+    return prover_fetch_credentials_for_proof_req(search_handle as SearchHandle, item_referent, count).wait()
+}
+
 pub fn prover_fetch_credentials_for_proof_req(search_handle: SearchHandle, item_referent: &str, count: usize) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1068,6 +1210,11 @@ fn _prover_fetch_credentials_for_proof_req(command_handle: CommandHandle, search
 ///
 /// # Arguments
 /// * `search_handle`: Search handle (created by search_credentials_for_proof_req)
+pub fn u_prover_close_credentials_search_for_proof_req(search_handle: i32) -> Result<(), IndyError> {
+
+    return prover_close_credentials_search_for_proof_req(search_handle as SearchHandle).wait();
+}
+
 pub fn prover_close_credentials_search_for_proof_req(search_handle: SearchHandle) -> Box<dyn Future<Item=(), Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec();
 
@@ -1214,6 +1361,11 @@ fn _prover_close_credentials_search_for_proof_req(command_handle: CommandHandle,
 ///           It should not be parsed and are likely to change in future versions).
 ///         "identifiers": [{schema_id, cred_def_id, Optional<rev_reg_id>, Optional<timestamp>}]
 ///     }
+pub fn u_prover_create_proof(wallet_handle: i32, proof_req_json: &str, requested_credentials_json: &str, master_secret_id: &str, schemas_json: &str, credential_defs_json: &str, rev_states_json: &str) -> Result<String, IndyError> {
+
+    return prover_create_proof(WalletHandle(wallet_handle), proof_req_json, requested_credentials_json, master_secret_id, schemas_json, credential_defs_json, rev_states_json).wait();
+}
+
 pub fn prover_create_proof(wallet_handle: WalletHandle, proof_req_json: &str, requested_credentials_json: &str, master_secret_id: &str, schemas_json: &str, credential_defs_json: &str, rev_states_json: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1324,6 +1476,11 @@ fn _prover_create_proof(command_handle: CommandHandle, wallet_handle: WalletHand
 ///
 /// # Returns
 /// * `valid`: true - if signature is valid, false - otherwise
+pub fn u_verifier_verify_proof(proof_request_json: &str, proof_json: &str, schemas_json: &str, credential_defs_json: &str, rev_reg_defs_json: &str, rev_regs_json: &str) -> Result<bool, IndyError> {
+
+    return verifier_verify_proof(proof_request_json, proof_json, schemas_json, credential_defs_json, rev_reg_defs_json, rev_regs_json).wait();
+}
+
 pub fn verifier_verify_proof(proof_request_json: &str, proof_json: &str, schemas_json: &str, credential_defs_json: &str, rev_reg_defs_json: &str, rev_regs_json: &str) -> Box<dyn Future<Item=bool, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_bool();
 
@@ -1370,6 +1527,12 @@ fn _verifier_verify_proof(command_handle: CommandHandle, proof_request_json: &st
 ///                             It should not be parsed and are likely to change in future versions).
 ///     "timestamp" : integer
 /// }
+pub fn u_create_revocation_state(blob_storage_reader_handle: i32, rev_reg_def_json: &str, rev_reg_delta_json: &str, timestamp: u64, cred_rev_id: &str) -> Result<String, IndyError> {
+
+    return create_revocation_state(blob_storage_reader_handle as BlobStorageReaderHandle, rev_reg_def_json, 
+        rev_reg_delta_json, timestamp, cred_rev_id).wait();
+}
+
 pub fn create_revocation_state(blob_storage_reader_handle: BlobStorageReaderHandle, rev_reg_def_json: &str, rev_reg_delta_json: &str, timestamp: u64, cred_rev_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1412,6 +1575,12 @@ fn _create_revocation_state(command_handle: CommandHandle, blob_storage_reader_h
 ///                            It should not be parsed and are likely to change in future versions).
 ///     "timestamp" : integer
 /// }
+pub fn u_update_revocation_state(blob_storage_reader_handle: BlobStorageReaderHandle, rev_state_json: &str, rev_reg_def_json: &str, rev_reg_delta_json: &str, timestamp: u64, cred_rev_id: &str) -> Result<String, IndyError> {
+
+    return update_revocation_state(blob_storage_reader_handle as BlobStorageReaderHandle, rev_state_json, 
+        rev_reg_def_json, rev_reg_delta_json, timestamp, cred_rev_id).wait();
+}
+
 pub fn update_revocation_state(blob_storage_reader_handle: BlobStorageReaderHandle, rev_state_json: &str, rev_reg_def_json: &str, rev_reg_delta_json: &str, timestamp: u64, cred_rev_id: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1443,6 +1612,11 @@ fn _update_revocation_state(command_handle: CommandHandle, blob_storage_reader_h
 ///
 /// # Returns
 /// * `nonce`: generated number as a string
+pub fn u_generate_nonce() -> Result<String, IndyError> {
+
+    return generate_nonce().wait();
+}
+
 pub fn generate_nonce() -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
@@ -1479,6 +1653,11 @@ fn _generate_nonce(command_handle: CommandHandle, cb: Option<ResponseStringCB>) 
 ///
 /// # Returns
 /// * `res`: entity either in unqualified form or original if casting isn't possible
+pub fn u_to_unqualified(entity: &str) -> Result<String, IndyError> {
+
+    return to_unqualified(entity).wait();
+}
+
 pub fn to_unqualified(entity: &str) -> Box<dyn Future<Item=String, Error=IndyError>> {
     let (receiver, command_handle, cb) = ClosureHandler::cb_ec_string();
 
